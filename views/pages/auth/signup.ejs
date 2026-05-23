@@ -2,14 +2,51 @@
 <%- include('../../partials/header.ejs') %>
 
 <!-- main content -->
-    <section class="my-3">
-        <div class="container">
-            <h2>welcome to exp blog signup</h2>
-        </div>
-    </section>
+<section class="my-5">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 offset-md-3 shadow p-5 card">
+				<h4>Create New Account</h4>
+				<form action="/auth/signup" method="post">
+					<!-- username field -->
+					<div class="form-group my-3">
+						<label for="username">
+							Enter Username (must be uniq)
+						</label>
+						<input type="text" name="username" id="username" class="form-control">
+					</div>
+					<!-- email field -->
+					<div class="form-group my-3">
+						<label for="email">
+							Enter Email (must be uniq)
+						</label>
+						<input type="email" name="email" id="email" class="form-control">
+					</div>
+					<!-- password field -->
+					<div class="form-group my-3">
+						<label for="password">
+							Enter Password
+						</label>
+						<input type="password" name="password" id="password" class="form-control">
+					</div>
+					<!-- confirm password field -->
+					<div class="form-group my-3">
+						<label for="confirmPassword">
+							Confirm Password
+						</label>
+						<input type="password" name="confirmPassword" id="confirmPassword" class="form-control">
+					</div>
+					<!-- submit button field -->
+					<input type="submit" value="Signup" class="btn btn-primary mt-4">
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
 
 <!-- including footer -->
 <%- include('../../partials/footer.ejs') %>
 
 </body>
+
 </html>

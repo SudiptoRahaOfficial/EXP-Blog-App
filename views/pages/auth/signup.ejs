@@ -6,7 +6,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 offset-md-3 shadow p-5 card">
-				<h4>Create New Account</h4>
+				<h4 class="text-center">Create New Account</h4>
 				<form action="/auth/signup" method="post">
 					<!-- username field -->
 					<div class="form-group my-3">
@@ -39,6 +39,10 @@
 					<!-- submit button field -->
 					<input type="submit" value="Signup" class="btn btn-primary mt-4">
 				</form>
+				<!-- redirect to signin -->
+				<a href="/auth/signin" class="my-3 text-center text-decoration-none text-secondary">
+					Already have an account? signin here
+				</a>
 			</div>
 		</div>
 	</div>

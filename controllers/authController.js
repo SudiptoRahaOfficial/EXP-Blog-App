@@ -30,7 +30,7 @@ const signupPostController = async (req, res, next) => {
 		// saving new user to database
 		let newUser = await user.save()
 		console.log(`New user signed up successfully!`, `User data: ${newUser}`)
-		res.render('pages/auth/signup', { title: 'Create an account' })
+		return res.redirect('/auth/signin')
 	} catch (err) {
 		console.log(err)
 		next(err)
@@ -38,7 +38,9 @@ const signupPostController = async (req, res, next) => {
 }
 
 // controller for signin get route
-const signinGetController = (req, res, next) => {}
+const signinGetController = (req, res, next) => {
+	res.render('pages/auth/signin', { title: 'Signin To Account' })
+}
 
 // controller for signin post route
 const signinPostController = (req, res, next) => {}

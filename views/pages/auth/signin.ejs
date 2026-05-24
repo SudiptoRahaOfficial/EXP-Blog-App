@@ -1,0 +1,42 @@
+<!-- including header -->
+<%- include('../../partials/header.ejs') %>
+
+<!-- main content -->
+<section class="my-5">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 offset-md-3 shadow p-5 card">
+				<h4 class="text-center">Signin To Account</h4>
+				<form action="/auth/signin" method="post">
+					<!-- email field -->
+					<div class="form-group my-3">
+						<label for="email">
+							Enter Email
+						</label>
+						<input type="email" name="email" id="email" class="form-control">
+					</div>
+					<!-- password field -->
+					<div class="form-group my-3">
+						<label for="password">
+							Enter Password
+						</label>
+						<input type="password" name="password" id="password" class="form-control">
+					</div>
+					<!-- submit button field -->
+					<input type="submit" value="Signin" class="btn btn-primary mt-4">
+				</form>
+                <!-- redirect to signup -->
+				<a href="/auth/signup" class="my-3 text-center text-decoration-none text-secondary">
+					Don't have an account? Create one
+				</a>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- including footer -->
+<%- include('../../partials/footer.ejs') %>
+
+</body>
+
+</html>

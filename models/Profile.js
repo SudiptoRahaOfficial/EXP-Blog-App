@@ -1,16 +1,12 @@
 // extracting Schema & model from mongoose
 const { Schema, model } = require('mongoose')
 
-// importing User & Post model
-const User = require('./User')
-const Post = require('./Post')
-
 // making profileSchema
 const profileSchema = new Schema(
 	{
 		user: {
 			type: Schema.Types.ObjectId,
-			ref: User,
+			ref: 'User',
 			required: true,
 		},
 		name: {
@@ -40,13 +36,13 @@ const profileSchema = new Schema(
 		posts: [
 			{
 				type: Schema.Types.ObjectId,
-				ref: Post,
+				ref: 'Post',
 			},
 		],
 		bookmarks: [
 			{
 				type: Schema.Types.ObjectId,
-				ref: Post,
+				ref: 'Post',
 			},
 		],
 	},

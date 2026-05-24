@@ -1,9 +1,6 @@
 // extracting Schema & model from mongoose
 const { Schema, model } = require('mongoose')
 
-// importing Profile model
-const Profile = require('./Profile')
-
 // making userSchema
 const userSchema = new Schema(
 	{
@@ -23,9 +20,14 @@ const userSchema = new Schema(
 			required: true,
 			minlength: 6,
 		},
+		confirmPassword: {
+			type: String,
+			required: true,
+			minlength: 6,
+		},
 		profile: {
 			type: Schema.Types.ObjectId,
-			ref: Profile,
+			ref: 'Profile',
 		},
 	},
 	{ timestamps: true },

@@ -30,6 +30,8 @@ const signupPostController = async (req, res, next) => {
 		// saving new user to database
 		let newUser = await user.save()
 		console.log(`New user signed up successfully!`, `User data: ${newUser}`)
+
+		// redirecting user to signin
 		return res.redirect('/auth/signin')
 	} catch (err) {
 		console.log(err)
@@ -43,7 +45,36 @@ const signinGetController = (req, res, next) => {
 }
 
 // controller for signin post route
-const signinPostController = (req, res, next) => {}
+const signinPostController = async (req, res, next) => {
+	// extracting form data
+	const { email, password } = req.body
+
+	// logics for signup
+	try {
+		// fecthing user by provided email
+		const user = await User.findOne({ email })
+		if (!user) {
+			return res.json({
+				message: 'Invalid Credential!',
+			})
+		}
+
+		// matching provided password with db stored password
+		const isMatchPassword = await bcrypt.compare(password, user.password)
+		if (!isMatchPassword) {
+			return res.json({
+				message: 'Invalid Credential!',
+			})
+		}
+
+		// redirecting user to dashboard
+		console.log(`User signed in successfully - ${user}`)
+		return res.redirect('/')
+	} catch (err) {
+		console.log(err)
+		next(err)
+	}
+}
 
 // controller for signout route
 const signoutController = (req, res, next) => {}

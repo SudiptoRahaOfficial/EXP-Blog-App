@@ -13,28 +13,40 @@
 						<label for="username">
 							Enter Username (must be uniq)
 						</label>
-						<input type="text" name="username" id="username" class="form-control">
+						<input type="text" name="username" id="username" class="form-control <%= errors.username ? "is-invalid" : "" %>" value="<%= value.username ? value.username : "" %>">
+						<p class="invalid-feedback">
+							<%= errors.username && errors.username %>
+						</p>
 					</div>
 					<!-- email field -->
 					<div class="form-group my-3">
 						<label for="email">
 							Enter Email (must be uniq)
 						</label>
-						<input type="email" name="email" id="email" class="form-control">
+						<input type="email" name="email" id="email" class="form-control <%= errors.email ? "is-invalid" : "" %>" value="<%= value.email ? value.email : "" %>">
+						<p class="invalid-feedback">
+							<%= errors.email && errors.email %>
+						</p>
 					</div>
 					<!-- password field -->
 					<div class="form-group my-3">
 						<label for="password">
 							Enter Password
 						</label>
-						<input type="password" name="password" id="password" class="form-control">
+						<input type="password" name="password" id="password" class="form-control <%= errors.password ? "is-invalid" : "" %>" value="<%= value.password ? value.password : "" %>">
+						<p class="invalid-feedback">
+							<%= errors.password && errors.password %>
+						</p>
 					</div>
 					<!-- confirm password field -->
 					<div class="form-group my-3">
 						<label for="confirmPassword">
 							Confirm Password
 						</label>
-						<input type="password" name="confirmPassword" id="confirmPassword" class="form-control">
+						<input type="password" name="confirmPassword" id="confirmPassword" class="form-control <%= errors.confirmPassword ? "is-invalid" : "" %>">
+						<p class="invalid-feedback">
+							<%= errors.confirmPassword && errors.confirmPassword %>
+						</p>
 					</div>
 					<!-- submit button field -->
 					<input type="submit" value="Signup" class="btn btn-primary mt-4">

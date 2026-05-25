@@ -1,18 +1,36 @@
 // importing dependencis
 const bcrypt = require('bcrypt')
+const { validationResult } = require('express-validator')
 
-// importing models
+// importing model
 const User = require('../models/User')
+
+// importing error formatter
+const errorFormatter = require('../utils/validationErrorFormatter')
 
 // controller for signup get route
 const signupGetController = (req, res, next) => {
-	res.render('pages/auth/signup', { title: 'Create an account' })
+	res.render('pages/auth/signup', {
+		title: 'Create an account',
+		errors: {},
+		value: {},
+	})
 }
 
 // controller for signup post route
 const signupPostController = async (req, res, next) => {
 	// extracting form data
 	const { username, email, password, confirmPassword } = req.body
+
+	// checking validation errors
+	let errors = validationResult(req).formatWith(errorFormatter)
+	if (!errors.isEmpty()) {
+		return res.render('pages/auth/signup', {
+			title: 'Create an account',
+			errors: errors.mapped(),
+			value: { username, email, password },
+		})
+	}
 
 	try {
 		// encripting password & confirmPassword

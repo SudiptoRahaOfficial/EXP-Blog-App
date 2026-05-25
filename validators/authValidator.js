@@ -8,6 +8,8 @@ const User = require('../models/User')
 const signupValidator = [
 	body('username')
 		.trim()
+		.notEmpty()
+		.withMessage('username is required')
 		.isLength({ min: 3, max: 15 })
 		.withMessage('username must be between 3 to 15 characters')
 		.bail()
@@ -18,6 +20,8 @@ const signupValidator = [
 			}
 		}),
 	body('email')
+		.notEmpty()
+		.withMessage('email is required')
 		.normalizeEmail()
 		.isEmail()
 		.withMessage('provide a valid email')
@@ -29,9 +33,13 @@ const signupValidator = [
 			}
 		}),
 	body('password')
+		.notEmpty()
+		.withMessage('password is required')
 		.isLength({ min: 6 })
 		.withMessage('password must be have 6 characters'),
 	body('confirmPassword')
+		.notEmpty()
+		.withMessage('confirm password is required')
 		.isLength({ min: 6 })
 		.withMessage('password must be have 6 characters')
 		.custom((confirmPassword, { req }) => {
@@ -44,7 +52,10 @@ const signupValidator = [
 ]
 
 // validation array for signin route
-const signinValidator = []
+const signinValidator = [
+	body('email').notEmpty().withMessage('email is required'),
+	body('password').notEmpty().withMessage('password is required'),
+]
 
 // exporting validators
 module.exports = {

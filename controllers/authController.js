@@ -59,13 +59,22 @@ const signupPostController = async (req, res, next) => {
 
 // controller for signin get route
 const signinGetController = (req, res, next) => {
-	res.render('pages/auth/signin', { title: 'Signin To Account' })
+	res.render('pages/auth/signin', { title: 'Signin To Account', errors: {} })
 }
 
 // controller for signin post route
 const signinPostController = async (req, res, next) => {
 	// extracting form data
 	const { email, password } = req.body
+
+	// checking validation errors
+	let errors = validationResult(req).formatWith(errorFormatter)
+	if (!errors.isEmpty()) {
+		return res.render('pages/auth/signin', {
+			title: 'Signin To Account',
+			errors: errors.mapped(),
+		})
+	}
 
 	// logics for signup
 	try {

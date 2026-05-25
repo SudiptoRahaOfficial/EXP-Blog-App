@@ -13,14 +13,20 @@
 						<label for="email">
 							Enter Email
 						</label>
-						<input type="email" name="email" id="email" class="form-control">
+						<input type="email" name="email" id="email" class="form-control <%= errors.email ? "is-invalid" : "" %>">
+						<p class="invalid-feedback">
+							<%= errors.email && errors.email %>
+						</p>
 					</div>
 					<!-- password field -->
 					<div class="form-group my-3">
 						<label for="password">
 							Enter Password
 						</label>
-						<input type="password" name="password" id="password" class="form-control">
+						<input type="password" name="password" id="password" class="form-control <%= errors.password ? "is-invalid" : "" %>">
+						<p class="invalid-feedback">
+							<%= errors.password && errors.password %>
+						</p>
 					</div>
 					<!-- submit button field -->
 					<input type="submit" value="Signin" class="btn btn-primary mt-4">

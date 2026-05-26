@@ -22,7 +22,6 @@ const userSchema = new Schema(
 		},
 		confirmPassword: {
 			type: String,
-			required: true,
 			minlength: 6,
 		},
 		profile: {

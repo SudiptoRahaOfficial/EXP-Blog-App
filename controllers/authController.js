@@ -20,7 +20,7 @@ const signupGetController = (req, res, next) => {
 // controller for signup post route
 const signupPostController = async (req, res, next) => {
 	// extracting form data
-	const { username, email, password, confirmPassword } = req.body
+	const { username, email, password } = req.body
 
 	// checking validation errors
 	let errors = validationResult(req).formatWith(errorFormatter)
@@ -28,21 +28,19 @@ const signupPostController = async (req, res, next) => {
 		return res.render('pages/auth/signup', {
 			title: 'Create an account',
 			errors: errors.mapped(),
-			value: { username, email, password },
+			value: { username, email },
 		})
 	}
 
 	try {
 		// encripting password & confirmPassword
 		let hashedPassword = await bcrypt.hash(password, 10)
-		let hashedConfirmPassword = await bcrypt.hash(confirmPassword, 10)
 
 		// making new userObj
 		let user = new User({
 			username,
 			email,
 			password: hashedPassword,
-			confirmPassword: hashedConfirmPassword,
 		})
 
 		// saving new user to database
@@ -94,9 +92,20 @@ const signinPostController = async (req, res, next) => {
 			})
 		}
 
-		// redirecting user to dashboard
-		console.log(`User signed in successfully - ${user}`)
-		return res.redirect('/')
+		// setting up session for save on database
+		req.session.isLoggedIn = true
+		req.session.user = {
+			_id: user._id.toString(),
+			username: user.username,
+			email: user.email,
+		}
+
+		// saving session on db, after saving successfully redirecting to dashboard
+		req.session.save((err) => {
+			if (err) return next(err)
+			console.log(`User signed in successfully - ${user.email}`)
+			return res.redirect('/')
+		})
 	} catch (err) {
 		console.log(err)
 		next(err)

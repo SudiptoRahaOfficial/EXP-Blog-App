@@ -11,6 +11,9 @@ const mongoDBStore = require('connect-mongodb-session')(session)
 // importing routes
 const authRoute = require('./routes/authRoute')
 
+// importing middlewares
+const { bindUserWithRequest } = require('./middlewares/authMiddleware')
+
 // app, port & db-connection-string defenation
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -50,6 +53,7 @@ const middlewares = [
 			maxAge: 60 * 60 * 24 * 1000,
 		},
 	}), // session configuration
+	bindUserWithRequest() // binding logged in user with request
 ]
 app.use(middlewares)
 

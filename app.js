@@ -9,7 +9,8 @@ const session = require('express-session')
 const mongoDBStore = require('connect-mongodb-session')(session)
 
 // importing routes
-const authRoute = require('./routes/authRoute')
+const authRoutes = require('./routes/authRoute')
+const dashboardRoutes = require('./routes/dashboardRoute')
 
 // importing middlewares
 const { bindUserWithRequest } = require('./middlewares/authMiddleware')
@@ -60,7 +61,8 @@ const middlewares = [
 app.use(middlewares)
 
 // all routes
-app.use('/auth', authRoute)
+app.use('/auth', authRoutes)
+app.use('/dashboard', dashboardRoutes)
 
 // handeling root route
 app.get('/', (req, res) => {

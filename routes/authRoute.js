@@ -16,11 +16,14 @@ const {
 	signoutController,
 } = require('../controllers/authController')
 
+// importing auth middlewares
+const { isUnAuthenticated } = require('../middlewares/authMiddleware')
+
 // all auth routes
-router.get('/signup', signupGetController)
-router.post('/signup', signupValidator, signupPostController)
-router.get('/signin', signinGetController)
-router.post('/signin', signinValidator, signinPostController)
+router.get('/signup', isUnAuthenticated, signupGetController)
+router.post('/signup', isUnAuthenticated, signupValidator, signupPostController)
+router.get('/signin', isUnAuthenticated, signinGetController)
+router.post('/signin', isUnAuthenticated, signinValidator, signinPostController)
 router.get('/signout', signoutController)
 
 // exporting router

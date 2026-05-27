@@ -92,7 +92,7 @@ const signinPostController = async (req, res, next) => {
 			})
 		}
 
-		// setting up session for save on database
+		// creating session for save on database
 		req.session.isLoggedIn = true
 		req.session.user = {
 			_id: user._id.toString(),
@@ -104,7 +104,7 @@ const signinPostController = async (req, res, next) => {
 		req.session.save((err) => {
 			if (err) return next(err)
 			console.log(`User signed in successfully - ${user.email}`)
-			return res.redirect('/')
+			return res.redirect('/dashboard')
 		})
 	} catch (err) {
 		console.log(err)
@@ -113,7 +113,15 @@ const signinPostController = async (req, res, next) => {
 }
 
 // controller for signout route
-const signoutController = (req, res, next) => {}
+const signoutController = (req, res, next) => {
+	req.session.distroy((err) => {
+		if (err) {
+			console.log(err)
+			return next(err)
+		}
+		return res.redirect('/auth/signin')
+	})
+}
 
 // exporting all controllers
 module.exports = {

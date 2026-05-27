@@ -1,11 +1,14 @@
 // extracting router form express
 const router = require('express').Router()
 
-// importing controller
+// importing middlewares
+const { isAuthenticated } = require('../middlewares/authMiddleware')
+
+// importing controllers
 const { dashboardGetController } = require('../controllers/dashboardController')
 
 // all routes
-router.get('/', dashboardGetController)
+router.get('/', isAuthenticated, dashboardGetController)
 
 // exporting router
 module.exports = router

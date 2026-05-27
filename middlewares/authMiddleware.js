@@ -5,7 +5,7 @@ const User = require('../models/User')
 const bindUserWithRequest = () => {
 	return async (req, res, next) => {
 		if (!req.session.isLoggedIn) {
-			next()
+			return next()
 		}
 
 		try {
@@ -19,5 +19,25 @@ const bindUserWithRequest = () => {
 	}
 }
 
+// middleware function - isAuthenticated
+const isAuthenticated = (req, res, next) => {
+	if (!req.session.isLoggedIn) {
+		return res.redirect('/auth/signin')
+	}
+	next()
+}
+
+// middleware function - isUnAuthenticated
+const isUnAuthenticated = (req, res, next) => {
+	if (req.session.isLoggedIn) {
+		return res.redirect('/dashboard')
+	}
+	next()
+}
+
 // exporting auth middleware functions
-module.exports = { bindUserWithRequest }
+module.exports = {
+	bindUserWithRequest,
+	isAuthenticated,
+	isUnAuthenticated,
+}

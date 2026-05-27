@@ -13,6 +13,7 @@ const authRoute = require('./routes/authRoute')
 
 // importing middlewares
 const { bindUserWithRequest } = require('./middlewares/authMiddleware')
+const { setLocals } = require('./middlewares/setLocals')
 
 // app, port & db-connection-string defenation
 const app = express()
@@ -53,7 +54,8 @@ const middlewares = [
 			maxAge: 60 * 60 * 24 * 1000,
 		},
 	}), // session configuration
-	bindUserWithRequest() // binding logged in user with request
+	bindUserWithRequest(), // binding logged in user with request
+	setLocals(), // binding some data with locals
 ]
 app.use(middlewares)
 

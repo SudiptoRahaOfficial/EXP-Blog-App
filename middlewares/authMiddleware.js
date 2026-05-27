@@ -10,8 +10,8 @@ const bindUserWithRequest = () => {
 
 		try {
 			const user = await User.findById(req.session.user._id)
-            req.user = user
-            next()
+			req.user = user
+			next()
 		} catch (err) {
 			console.log(err)
 			next(err)
@@ -19,4 +19,5 @@ const bindUserWithRequest = () => {
 	}
 }
 
+// exporting auth middleware functions
 module.exports = { bindUserWithRequest }

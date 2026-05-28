@@ -114,7 +114,7 @@ const signinPostController = async (req, res, next) => {
 
 // controller for signout route
 const signoutController = (req, res, next) => {
-	req.session.distroy((err) => {
+	req.session.destroy((err) => {
 		if (err) {
 			console.log(err)
 			return next(err)

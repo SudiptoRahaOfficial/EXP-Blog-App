@@ -1,0 +1,29 @@
+<div class="my-2">
+	<!-- alert box for : success -->
+	<% if (flashMessage.success) { %>
+
+	<div class="alert alert-primary alert-dismissible fade show my-3" role="alert">
+
+		<!-- flash message -->
+		<%= flashMessage.success %>
+
+		<!-- close button -->
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="font-size: 12px;"></button>
+
+	</div>
+	<% } %>
+
+	<!-- alert box for : fail -->
+	<% if (flashMessage.fail) { %>
+
+	<div class="alert alert-danger alert-dismissible fade show my-3" role="alert">
+
+		<!-- flash message -->
+		<%= flashMessage.fail %>
+
+		<!-- close button -->
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="font-size: 12px;"></button>
+
+	</div>
+	<% } %>
+</div>

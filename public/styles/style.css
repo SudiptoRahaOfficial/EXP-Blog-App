@@ -25,3 +25,8 @@ footer a {
 	font-size: 14px;
 	color: #000;
 }
+
+.btn-close:focus {
+    box-shadow: none;
+    outline: none;
+}

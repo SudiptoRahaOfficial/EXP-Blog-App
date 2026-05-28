@@ -8,12 +8,17 @@ const User = require('../models/User')
 // importing error formatter
 const errorFormatter = require('../utils/validationErrorFormatter')
 
+// importing Flash class for alerts
+const Flash = require('../utils/Flash')
+
+// ALL AUTHENTICATION CONTROLLERS ----------
 // controller for signup get route
 const signupGetController = (req, res, next) => {
 	res.render('pages/auth/signup', {
 		title: 'Create an account',
 		errors: {},
 		value: {},
+		flashMessage: Flash.getMessage(req),
 	})
 }
 
@@ -25,10 +30,12 @@ const signupPostController = async (req, res, next) => {
 	// checking validation errors
 	let errors = validationResult(req).formatWith(errorFormatter)
 	if (!errors.isEmpty()) {
+		req.flash('fail', 'Please Check The Form Again!')
 		return res.render('pages/auth/signup', {
 			title: 'Create an account',
 			errors: errors.mapped(),
 			value: { username, email },
+			flashMessage: Flash.getMessage(req),
 		})
 	}
 
@@ -46,6 +53,7 @@ const signupPostController = async (req, res, next) => {
 		// saving new user to database
 		let newUser = await user.save()
 		console.log(`New user signed up successfully!`, `User data: ${newUser}`)
+		req.flash('success', 'Signed Up Successfully!')
 
 		// redirecting user to signin
 		return res.redirect('/auth/signin')
@@ -57,7 +65,11 @@ const signupPostController = async (req, res, next) => {
 
 // controller for signin get route
 const signinGetController = (req, res, next) => {
-	res.render('pages/auth/signin', { title: 'Signin To Account', errors: {} })
+	res.render('pages/auth/signin', {
+		title: 'Signin To Account',
+		errors: {},
+		flashMessage: Flash.getMessage(req),
+	})
 }
 
 // controller for signin post route
@@ -68,9 +80,11 @@ const signinPostController = async (req, res, next) => {
 	// checking validation errors
 	let errors = validationResult(req).formatWith(errorFormatter)
 	if (!errors.isEmpty()) {
+		req.flash('fail', 'Please Check The Form Again!')
 		return res.render('pages/auth/signin', {
 			title: 'Signin To Account',
 			errors: errors.mapped(),
+			flashMessage: Flash.getMessage(req),
 		})
 	}
 
@@ -79,16 +93,22 @@ const signinPostController = async (req, res, next) => {
 		// fecthing user by provided email
 		const user = await User.findOne({ email })
 		if (!user) {
-			return res.json({
-				message: 'Invalid Credential!',
+			req.flash('fail', 'Authentication Failed!')
+			return res.render('pages/auth/signin', {
+				title: 'Signin To Account',
+				errors: {},
+				flashMessage: Flash.getMessage(req),
 			})
 		}
 
 		// matching provided password with db stored password
 		const isMatchPassword = await bcrypt.compare(password, user.password)
 		if (!isMatchPassword) {
-			return res.json({
-				message: 'Invalid Credential!',
+			req.flash('fail', 'Authentication Failed!')
+			return res.render('pages/auth/signin', {
+				title: 'Signin To Account',
+				errors: {},
+				flashMessage: Flash.getMessage(req),
 			})
 		}
 
@@ -103,7 +123,11 @@ const signinPostController = async (req, res, next) => {
 		// saving session on db, after saving successfully redirecting to dashboard
 		req.session.save((err) => {
 			if (err) return next(err)
+
 			console.log(`User signed in successfully - ${user.email}`)
+			req.flash('success', 'Signed In Successfully!')
+
+			// redirecting user to dashboard
 			return res.redirect('/dashboard')
 		})
 	} catch (err) {
@@ -114,11 +138,13 @@ const signinPostController = async (req, res, next) => {
 
 // controller for signout route
 const signoutController = (req, res, next) => {
-	req.session.destroy((err) => {
+	req.session.regenerate((err) => {
 		if (err) {
 			console.log(err)
 			return next(err)
 		}
+
+		req.flash('success', 'Signed Out Successfully!')
 		return res.redirect('/auth/signin')
 	})
 }

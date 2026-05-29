@@ -8,6 +8,7 @@ const morgan = require('morgan')
 const session = require('express-session')
 const mongoDBStore = require('connect-mongodb-session')(session)
 const flash = require('connect-flash')
+const config = require('config')
 
 // importing routes
 const authRoutes = require('./routes/authRoute')
@@ -19,11 +20,10 @@ const { setLocals } = require('./middlewares/setLocals')
 
 // app, port & db-connection-string defenation
 const app = express()
-const PORT = process.env.PORT || 3000
-const dbConnectionStr = process.env.db_connection_uri.replace(
-	'<db_password>',
-	process.env.db_password,
-)
+const PORT = config.get('port') || 3000
+const dbConnectionStr = config
+	.get('db-connection-uri')
+	.replace('<db_password>', config.get('db-password'))
 
 // session store configuration
 const sessionStore = new mongoDBStore({
@@ -48,7 +48,7 @@ const middlewares = [
 	express.urlencoded({ extended: true }), // accepting form data
 	express.json(), // accepting json data
 	session({
-		secret: process.env.SECRET_KEY || 'SECRET_KEY',
+		secret: config.get('secret-key') || 'SECRET_KEY',
 		resave: false,
 		saveUninitialized: false,
 		store: sessionStore,

@@ -10,9 +10,8 @@ const mongoDBStore = require('connect-mongodb-session')(session)
 const flash = require('connect-flash')
 const config = require('config')
 
-// importing routes
-const authRoutes = require('./routes/authRoute')
-const dashboardRoutes = require('./routes/dashboardRoute')
+// importing route setup function
+const setRoutes = require('./routes/allRoutes')
 
 // importing middlewares
 const { bindUserWithRequest } = require('./middlewares/authMiddleware')
@@ -62,14 +61,8 @@ const middlewares = [
 ]
 app.use(middlewares)
 
-// all routes
-app.use('/auth', authRoutes)
-app.use('/dashboard', dashboardRoutes)
-
-// handeling root route
-app.get('/', (req, res) => {
-	res.send(`<h3>Welcome to EXP Blog!</h3>`)
-})
+// applying all routes to the app
+setRoutes(app)
 
 // handeling unwanted routes
 app.use((req, res) => {

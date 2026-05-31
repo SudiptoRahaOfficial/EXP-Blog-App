@@ -2,6 +2,12 @@
 const authRoutes = require('./authRoute')
 const dashboardRoutes = require('./dashboardRoute')
 
+// importing error handler middlewares
+const {
+	notFound,
+	errorHandler,
+} = require('../middlewares/errorHandleMiddleware')
+
 // ALL ROUTES STORING HERE ----------
 const routes = [
 	// auth routes
@@ -33,10 +39,9 @@ const setRoutes = (app) => {
 		}
 	})
 
-	// 404 handler
-	app.use((req, res) => {
-		res.status(404).render('pages/error/404')
-	})
+	// handleing errors
+	app.use(notFound) // catches unmatched routes
+	app.use(errorHandler) // handles all errors
 }
 
 // exporting setRoute function

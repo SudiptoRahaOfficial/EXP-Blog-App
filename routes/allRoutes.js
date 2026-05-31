@@ -26,7 +26,16 @@ const routes = [
 // function for apply all routes at app
 const setRoutes = (app) => {
 	routes.forEach((route) => {
-		app.use(route.path, route.controller)
+		if (route.path === '/') {
+			app.get(route.path, route.controller)
+		} else {
+			app.use(route.path, route.controller)
+		}
+	})
+
+	// 404 handler
+	app.use((req, res) => {
+		res.status(404).render('pages/error/404')
 	})
 }
 

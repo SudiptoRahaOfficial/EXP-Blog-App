@@ -5,9 +5,27 @@ const router = require('express').Router()
 const { isAuthenticated } = require('../middlewares/authMiddleware')
 
 // importing controllers
-const { dashboardGetController } = require('../controllers/dashboardController')
+const {
+	dashboardGetController,
+	createProfileGetController,
+	createProfilePostController,
+	editProfileGetController,
+	editProfilePostController,
+} = require('../controllers/dashboardController')
 
-// all routes
+// ALL DASHBOARD ROUTES ----------
+
+// edit-profile get route
+router.get('/edit-profile', editProfileGetController)
+// edit-profile post route
+router.post('/edit-profile', editProfilePostController)
+
+// create-profile get route
+router.get('/create-profile', createProfileGetController)
+// create-profile post route
+router.post('/create-profile', createProfilePostController)
+
+// dashboard route
 router.get('/', isAuthenticated, dashboardGetController)
 
 // exporting router

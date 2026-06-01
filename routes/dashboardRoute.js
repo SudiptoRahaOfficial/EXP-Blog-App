@@ -16,14 +16,14 @@ const {
 // ALL DASHBOARD ROUTES ----------
 
 // edit-profile get route
-router.get('/edit-profile', editProfileGetController)
+router.get('/edit-profile', isAuthenticated, editProfileGetController)
 // edit-profile post route
-router.post('/edit-profile', editProfilePostController)
+router.post('/edit-profile', isAuthenticated, editProfilePostController)
 
 // create-profile get route
-router.get('/create-profile', createProfileGetController)
+router.get('/create-profile', isAuthenticated, createProfileGetController)
 // create-profile post route
-router.post('/create-profile', createProfilePostController)
+router.post('/create-profile', isAuthenticated, createProfilePostController)
 
 // dashboard route
 router.get('/', isAuthenticated, dashboardGetController)

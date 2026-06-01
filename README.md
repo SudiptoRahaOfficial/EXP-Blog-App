@@ -1,4 +1,4 @@
-# EXP BLOG APP - Backend learning Project
+# EXP BLOG APP - Backend Learning Project
 
 A backend-focused learning project built as part of my journey into backend engineering.
 

@@ -30,3 +30,11 @@ footer a {
     box-shadow: none;
     outline: none;
 }
+
+#createProfile > .container {
+	display: flex;
+}
+
+.offset-md-2 {
+	margin-left: 0;
+}

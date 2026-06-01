@@ -24,7 +24,12 @@ const dashboardGetController = async (req, res, next) => {
 }
 
 // controller funciton for create-profile get route
-const createProfileGetController = (req, res, next) => {}
+const createProfileGetController = (req, res, next) => {
+	res.render('pages/dashboard/create-profile', {
+		title: 'Create Profile',
+		flashMessage: {},
+	})
+}
 
 // controller funciton for create-profile post route
 const createProfilePostController = (req, res, next) => {}

@@ -5,10 +5,10 @@ const path = require('node:path')
 // configuring storage
 const storage = multer.diskStorage({
 	destination: (req, file, cb) => {
-		cd(null, 'public/uploads')
+		cb(null, 'public/uploads')
 	},
 	filename: (req, file, cb) => {
-		cd(null, `${file.fieldname}-${Date.now()}-${file.originalname}`)
+		cb(null, `${file.fieldname}-${Date.now()}-${file.originalname}`)
 	},
 })
 
@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
 const upload = multer({
 	storage,
 	limits: {
-		fieldSize: 1024 * 1024 * 5,
+		fileSize: 1024 * 1024 * 5,
 	},
 	fileFilter: (req, file, cb) => {
 		const types = /jpeg|jpg|png/

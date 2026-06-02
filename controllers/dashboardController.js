@@ -34,13 +34,20 @@ const createProfileGetController = (req, res, next) => {
 	res.render('pages/dashboard/create-profile', {
 		title: 'Create Profile | EXP BLOG',
 		flashMessage: {},
+		errors: {},
 	})
 }
 
 // controller funciton for create-profile post route
 const createProfilePostController = (req, res, next) => {
 	let errors = validationResult(req).formatWith(errorFormatter)
-	
+	if (!errors.isEmpty()) {
+		res.render('pages/dashboard/create-profile', {
+			title: 'Create Profile | EXP BLOG',
+			flashMessage: {},
+			errors: errors.mapped(),
+		})
+	}
 }
 
 // controller funciton for edit-profile get route

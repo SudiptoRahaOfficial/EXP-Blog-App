@@ -39,22 +39,52 @@
 							<!-- field for name -->
 							<div class="form-group">
 								<label for="name">Enter your name</label>
-								<input type="text" name="name" placeholder="Enter your name" class="form-control" id="name" />
+								<input 
+									type="text" 
+									name="name" 
+									placeholder="Enter your name" class="form-control <%= errors.name ? 'is-invalid' : '' %>" 
+									id="name" 
+								/>
+								<p class="invalid-feedback">
+									<%= errors.name && errors.name %>
+								</p>
 							</div>
 							<!-- field for email -->
 							<div class="form-group">
 								<label for="email">Enter your email</label>
-								<input type="email" name="email" placeholder="Enter your email" class="form-control" id="email" value="<%= user.email %>" disabled />
+								<input 
+									type="email" 
+									name="email" 
+									placeholder="Enter your email" class="form-control" 
+									id="email" 
+									value="<%= user.email %>" 
+									disabled 
+								/>
 							</div>
 							<!-- field for title -->
 							<div class="form-group">
 								<label for="title">Enter a short title</label>
-								<input type="text" name="title" placeholder="Enter a short title" class="form-control" id="title" />
+								<input 
+									type="text" 
+									name="title" 
+									placeholder="Enter a short title" class="form-control <%= errors.title ? 'is-invalid' : '' %>" 
+									id="title" 
+								/>
+								<p class="invalid-feedback">
+									<%= errors.title && errors.title %>
+								</p>
 							</div>
 							<!-- field for bio -->
 							<div class="form-group">
 								<label for="bio">Enter a short bio</label>
-								<textarea name="bio" placeholder="Enter a short bio" class="form-control" id="bio"></textarea>
+								<textarea 
+									name="bio" 
+									placeholder="Enter a short bio" class="form-control <%= errors.bio ? 'is-invalid' : '' %>" 
+									id="bio">
+								</textarea>
+								<p class="invalid-feedback">
+									<%= errors.bio && errors.bio %>
+								</p>
 							</div>
 							<!-- fields for social links -->
 							<div>
@@ -64,35 +94,75 @@
 									<div class="input-group-prepend">
 										<img src="/images/icons/facebook.png" alt="facebook-icon" width="25">
 									</div>
-									<input class="form-control" type="text" name="facebook" placeholder="Facebook link" />
+									<input 
+										class="form-control <%= errors.facebook ? 'is-invalid' : '' %>" 
+										type="text" 
+										name="facebook" 
+										placeholder="Facebook link" 
+									/>
+									<p class="invalid-feedback">
+										<%= errors.facebook && errors.facebook %>
+									</p>
 								</div>
 								<!-- field for twitter -->
 								<div class="input-group mb-3">
 									<div class="input-group-prepend">
 										<img src="/images/icons/twitter.png" alt="twitter" width="25">
 									</div>
-									<input class="form-control" type="text" name="twitter" placeholder="Twitter link" />
+									<input 
+										class="form-control <%= errors.twitter ? 'is-invalid' : '' %>" 
+										type="text" 
+										name="twitter" 
+										placeholder="Twitter link" 
+									/>
+									<p class="invalid-feedback">
+										<%= errors.twitter && errors.twitter %>
+									</p>
 								</div>
 								<!-- field for linkedin -->
 								<div class="input-group mb-3">
 									<div class="input-group-prepend">
 										<img src="/images/icons/linkedin.png" alt="linkedin" width="25">
 									</div>
-									<input class="form-control" type="text" name="linkedin" placeholder="Linkedin link" />
+									<input 
+										class="form-control <%= errors.linkedin ? 'is-invalid' : '' %>" 
+										type="text" 
+										name="linkedin" 
+										placeholder="Linkedin link" 
+									/>
+									<p class="invalid-feedback">
+										<%= errors.linkedin && errors.linkedin %>
+									</p>
 								</div>
 								<!-- field for github -->
 								<div class="input-group mb-3">
 									<div class="input-group-prepend">
 										<img src="/images/icons/github.png" alt="github" width="25">
 									</div>
-									<input class="form-control" type="text" name="github" placeholder="GitHub link" />
+									<input 
+										class="form-control <%= errors.github ? 'is-invalid' : '' %>" 
+										type="text" 
+										name="github" 
+										placeholder="GitHub link" 
+									/>
+									<p class="invalid-feedback">
+										<%= errors.github && errors.github %>
+									</p>
 								</div>
 								<!-- field for website -->
 								<div class="input-group mb-3">
 									<div class="input-group-prepend">
 										<img src="/images/icons/website.png" alt="website-icon" width="25">
 									</div>
-									<input class="form-control" type="text" name="website" placeholder="Website link" />
+									<input 
+										class="form-control <%= errors.website ? 'is-invalid' : '' %>" 
+										type="text" 
+										name="website" 
+										placeholder="Website link" 
+									/>
+									<p class="invalid-feedback">
+										<%= errors.website && errors.website %>
+									</p>
 								</div>
 							</div>
 							<!-- submit button field -->

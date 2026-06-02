@@ -45,6 +45,7 @@ window.onload = function () {
 	const cropModalElement = document.getElementById('crop-modal')
 	const cancelCroppingBtn = document.getElementById('cancel-cropping')
 	const uploadBtn = document.getElementById('upload-image')
+	const removeBtn = document.getElementById('removeProfilePic')
 
 	const cropModal = new bootstrap.Modal(cropModalElement, {
 		backdrop: 'static',
@@ -92,8 +93,28 @@ window.onload = function () {
 				document.getElementById('removeProfilePic').style.display =
 					'block'
 				document.getElementById('profilePic').src = data.profilePic
+				document.getElementById('profilePicFrom').reset()
 
 				cropModal.hide()
+			})
+	})
+
+	removeBtn.addEventListener('click', function () {
+		let req = new Request('/uploads/profilePic', {
+			method: 'delete',
+			mode: 'cors',
+		})
+		fetch(req)
+			.then((res) => res.json())
+			.then((data) => {
+				document.getElementById('removeProfilePic').style.display =
+					'none'
+				document.getElementById('profilePic').src = data.profilePic
+				document.getElementById('profilePicFrom').reset()
+			})
+			.catch((err) => {
+				console.log(err)
+				alert('Server Error Occurred!')
 			})
 	})
 }

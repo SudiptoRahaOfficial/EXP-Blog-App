@@ -2,6 +2,9 @@
 const User = require('../models/User')
 const Profile = require('../models/Profile')
 
+// importing dependencis
+const fs = require('node:fs')
+
 // controller funciton for profile pic upload route
 const uploadProfilePic = async (req, res, next) => {
 	if (req.file) {
@@ -36,7 +39,44 @@ const uploadProfilePic = async (req, res, next) => {
 	}
 }
 
+// controller function for remove profile pic route
+const removeProfilePic = (req, res, next) => {
+	const defaultProfilePic = `/uploads/default-profile-avater.png`
+	const currentProfilePic = req.user.profilePic
+	try {
+		// updating profile pic at file system
+		fs.unlink(`public${currentProfilePic}`, async (err) => {
+			// checking profile exists or not
+			let profile = await Profile.findOne({ user: req.user._id })
+			// updating profile pic at profile if it exists
+			if (profile) {
+				await Profile.findOneAndUpdate(
+					{ user: req.user._id },
+					{ $set: { profilePic: defaultProfilePic } },
+				)
+			}
+
+			// updating profile pic at user
+			await User.findOneAndUpdate(
+				{ _id: req.user._id },
+				{ $set: { profilePic: defaultProfilePic } },
+			)
+		})
+
+		// sending response
+		res.status(200).json({ profilePic: defaultProfilePic })
+	} catch (err) {
+		console.log(err)
+
+		// sending error message if any error happens
+		res.status(500).json({
+			message: `Can't remove profile picture!`,
+		})
+	}
+}
+
 // exporting upload controllers
 module.exports = {
 	uploadProfilePic,
+	removeProfilePic,
 }

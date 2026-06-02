@@ -1,6 +1,9 @@
 // extracting router form express
 const router = require('express').Router()
 
+// importing validators
+const { createProfileValidator } = require('../validators/profileValidator')
+
 // importing middlewares
 const { isAuthenticated } = require('../middlewares/authMiddleware')
 
@@ -23,7 +26,12 @@ router.post('/edit-profile', isAuthenticated, editProfilePostController)
 // create-profile get route
 router.get('/create-profile', isAuthenticated, createProfileGetController)
 // create-profile post route
-router.post('/create-profile', isAuthenticated, createProfilePostController)
+router.post(
+	'/create-profile',
+	isAuthenticated,
+	createProfileValidator,
+	createProfilePostController,
+)
 
 // dashboard route
 router.get('/', isAuthenticated, dashboardGetController)

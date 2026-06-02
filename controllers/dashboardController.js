@@ -1,5 +1,11 @@
+// importing dependencis
+const { validationResult } = require('express-validator')
+
 // importing Profile model
 const Profile = require('../models/Profile')
+
+// importing error formatter
+const errorFormatter = require('../utils/validationErrorFormatter')
 
 // importing Flash class for alerts
 const Flash = require('../utils/Flash')
@@ -26,13 +32,16 @@ const dashboardGetController = async (req, res, next) => {
 // controller funciton for create-profile get route
 const createProfileGetController = (req, res, next) => {
 	res.render('pages/dashboard/create-profile', {
-		title: 'Create Profile',
+		title: 'Create Profile | EXP BLOG',
 		flashMessage: {},
 	})
 }
 
 // controller funciton for create-profile post route
-const createProfilePostController = (req, res, next) => {}
+const createProfilePostController = (req, res, next) => {
+	let errors = validationResult(req).formatWith(errorFormatter)
+	
+}
 
 // controller funciton for edit-profile get route
 const editProfileGetController = (req, res, next) => {}

@@ -20,7 +20,7 @@ const uploadProfilePic = async (req, res, next) => {
 
 			// updating profile pic at user
 			await User.findOneAndUpdate(
-				{ user: req.user._id },
+				{ _id: req.user._id },
 				{ $set: { profilePic } },
 			)
 

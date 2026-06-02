@@ -1,6 +1,7 @@
 // importing all routes
 const authRoutes = require('./authRoute')
 const dashboardRoutes = require('./dashboardRoute')
+const uploadRoutes = require('./uploadRoute')
 
 // importing error handler middlewares
 const {
@@ -15,7 +16,12 @@ const routes = [
 		path: '/auth',
 		controller: authRoutes,
 	},
-	// dashboard route
+	// upload routes
+	{
+		path: '/uploads',
+		controller: uploadRoutes,
+	},
+	// dashboard routes
 	{
 		path: '/dashboard',
 		controller: dashboardRoutes,

@@ -5,11 +5,11 @@
 <section class="my-5" id="createPost">
 	<div class="container">
 
-		<div class="col-md-4">
+		<div class="col-md-2">
 			<h2>left container</h2>
 		</div>
 
-		<div class="col-md-8">
+		<div class="col-md-10">
 			<div class="card card-body shadow p-5 mx-5">
                 <form 
                     action="/posts/create-post" 
@@ -27,10 +27,15 @@
                     </div>
                     <!-- post body field -->
                     <div class="mb-3">
-                        <label for="tiny-mce-post-body" class="form-label">Enter post body</label>
+                        <label 
+                            for="tiny-mce-post-body" 
+                            class="form-label"
+                        >Enter post body</label>
                         <textarea 
                             name="body" 
-                            id="tiny-mce-post-body"
+                            class="form-control" 
+                            id="tiny-mce-post-body" 
+                            rows="5"
                         ></textarea>
                     </div>
                     <!-- post tags field -->
@@ -46,18 +51,17 @@
                     </div>
                     <!-- post thumbnail upload field -->
                     <div class="input-group mb-3">
-                        <span 
-                            class="input-group-text" 
-                            id="inputGroupFile"
-                        >
-                            Upload
-                        </span>
                         <input 
-                            type="file" 
-                            name="post-thumbnail" 
-                            class="form-control"
-                            aria-describedby="inputGroupFile"
+                            type="file"
+                            name="post-thumbnail"  
+                            class="form-control" 
+                            id="inputGroupFile02"
                         />
+                        <label 
+                            class="input-group-text" 
+                            for="inputGroupFile02"
+                        >Upload
+                        </label>
                     </div>
                     <!-- submit button field -->
                     <input 

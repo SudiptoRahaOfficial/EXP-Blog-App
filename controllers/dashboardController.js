@@ -115,7 +115,63 @@ const editProfileGetController = async (req, res, next) => {
 }
 
 // controller funciton for edit-profile post route
-const editProfilePostController = (req, res, next) => {}
+const editProfilePostController = async (req, res, next) => {
+	// extracting from data given by user
+	const { name, title, bio, facebook, twitter, linkedin, github, website } =
+		req.body
+
+	// extracting validation errors
+	let errors = validationResult(req).formatWith(errorFormatter)
+
+	// rerendering page with error if error exists
+	if (!errors.isEmpty()) {
+		return res.render('pages/dashboard/edit-profile', {
+			title: 'Edit Profile | EXP BLOG',
+			flashMessage: {},
+			errors: errors.mapped(),
+			profile: {
+				name,
+				title,
+				bio,
+				links: {
+					facebook,
+					twitter,
+					linkedin,
+					github,
+					website,
+				},
+			},
+		})
+	}
+
+	// making profile object with updated data
+	let profile = {
+		name,
+		title,
+		bio,
+		links: { facebook, twitter, linkedin, github, website },
+	}
+
+	try {
+		// updating profile at db
+		let updatedProfile = await Profile.findOneAndUpdate(
+			{ user: req.user._id },
+			{ $set: profile },
+			{ new: true },
+		)
+
+		// after updating successfully rerendering edit page
+		req.flash('success', 'Profile updated successfully!')
+		res.render('pages/dashboard/edit-profile', {
+			title: 'Edit Profile | EXP BLOG',
+			flashMessage: Flash.getMessage(req),
+			errors: {},
+			profile: updatedProfile,
+		})
+	} catch (err) {
+		next(err)
+	}
+}
 
 // exporting controllers
 module.exports = {

@@ -21,7 +21,12 @@ const {
 // edit-profile get route
 router.get('/edit-profile', isAuthenticated, editProfileGetController)
 // edit-profile post route
-router.post('/edit-profile', isAuthenticated, editProfilePostController)
+router.post(
+	'/edit-profile',
+	isAuthenticated,
+	profileValidator,
+	editProfilePostController,
+)
 
 // create-profile get route
 router.get('/create-profile', isAuthenticated, createProfileGetController)

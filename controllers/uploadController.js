@@ -8,8 +8,11 @@ const fs = require('node:fs')
 // controller funciton for profile pic upload route
 const uploadProfilePic = async (req, res, next) => {
 	if (req.file) {
+		// old profile pic
+		const oldProfilePic = req.user.profilePic
 		// profile pic source
 		const profilePic = `/uploads/${req.file.filename}`
+
 		try {
 			// checking profile exists or not
 			const profile = await Profile.findOne({ user: req.user._id })
@@ -26,6 +29,13 @@ const uploadProfilePic = async (req, res, next) => {
 				{ _id: req.user._id },
 				{ $set: { profilePic } },
 			)
+
+			// deleting old picture from storage
+			if (oldProfilePic !== '/uploads/default-profile-avater.png') {
+				fs.unlink(`public${oldProfilePic}`, (err) => {
+					if (err) console.log(err)
+				})
+			}
 
 			// sending response
 			res.status(200).json({ profilePic })

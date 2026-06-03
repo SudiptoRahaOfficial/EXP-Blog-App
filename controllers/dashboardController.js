@@ -31,7 +31,13 @@ const dashboardGetController = async (req, res, next) => {
 }
 
 // controller funciton for create-profile get route
-const createProfileGetController = (req, res, next) => {
+const createProfileGetController = async (req, res, next) => {
+	// checking profile exists or not
+	const profile = await Profile.findOne({ user: req.user._id })
+	// if profile already exists redirecting user to edit-profile
+	if (profile) return res.redirect('/dashboard/edit-profile')
+	
+	// if profile not exists rendering create profile page
 	res.render('pages/dashboard/create-profile', {
 		title: 'Create Profile | EXP BLOG',
 		flashMessage: {},

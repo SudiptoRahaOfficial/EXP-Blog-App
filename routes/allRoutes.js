@@ -45,9 +45,9 @@ const setRoutes = (app) => {
 		}
 	})
 
-	// handleing errors
-	app.use(notFound) // catches unmatched routes
-	app.use(errorHandler) // handles all errors
+	// // handleing errors
+	// app.use(notFound) // catches unmatched routes
+	// app.use(errorHandler) // handles all errors
 }
 
 // exporting setRoute function

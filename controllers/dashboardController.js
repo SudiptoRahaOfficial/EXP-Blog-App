@@ -88,7 +88,25 @@ const createProfilePostController = async (req, res, next) => {
 }
 
 // controller funciton for edit-profile get route
-const editProfileGetController = (req, res, next) => {}
+const editProfileGetController = async (req, res, next) => {
+	try {
+		// approve edit-profile access if user's profile exists
+		const profile = await Profile.findOne({ user: req.user._id })
+		if (profile) {
+			return res.render('pages/dashboard/edit-profile', {
+				title: 'Edit Profile | EXP BLOG',
+				flashMessage: Flash.getMessage(req),
+				errors: {},
+				profile,
+			})
+		}
+
+		// redirecting to create-profile if profile not exists
+		return res.redirect('/dashboard/create-profile')
+	} catch (err) {
+		next(err)
+	}
+}
 
 // controller funciton for edit-profile post route
 const editProfilePostController = (req, res, next) => {}

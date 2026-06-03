@@ -30,10 +30,10 @@ const profileSchema = new Schema(
 		profilePic: String,
 		links: {
 			facebook: String,
-			Twitter: String,
+			twitter: String,
 			linkedin: String,
-			GitHub: String,
-			Website: String,
+			github: String,
+			website: String,
 		},
 		posts: [
 			{

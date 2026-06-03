@@ -2,7 +2,7 @@
 const router = require('express').Router()
 
 // importing validators
-const { createProfileValidator } = require('../validators/profileValidator')
+const profileValidator = require('../validators/profileValidator')
 
 // importing middlewares
 const { isAuthenticated } = require('../middlewares/authMiddleware')
@@ -29,7 +29,7 @@ router.get('/create-profile', isAuthenticated, createProfileGetController)
 router.post(
 	'/create-profile',
 	isAuthenticated,
-	createProfileValidator,
+	profileValidator,
 	createProfilePostController,
 )
 

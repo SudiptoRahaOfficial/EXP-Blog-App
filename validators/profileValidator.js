@@ -4,9 +4,6 @@ const validator = require('validator')
 // extracting body from express-validator
 const { body } = require('express-validator')
 
-// importing models
-const Profile = require('../models/Profile')
-
 // function for validate links
 const linkValidator = (value) => {
 	if (value) {
@@ -17,8 +14,8 @@ const linkValidator = (value) => {
 	return true
 }
 
-// validation array for create-profile route
-const createProfileValidator = [
+// validation array for profile
+const profileValidator = [
 	body('name')
 		.trim()
 		.notEmpty()
@@ -45,6 +42,4 @@ const createProfileValidator = [
 ]
 
 // exporting validators
-module.exports = {
-	createProfileValidator,
-}
+module.exports = profileValidator

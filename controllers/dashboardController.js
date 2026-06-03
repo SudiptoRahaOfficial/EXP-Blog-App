@@ -45,7 +45,7 @@ const createProfilePostController = async (req, res, next) => {
 	let errors = validationResult(req).formatWith(errorFormatter)
 	// rerendering page with error if error exists
 	if (!errors.isEmpty()) {
-		res.render('pages/dashboard/create-profile', {
+		return res.render('pages/dashboard/create-profile', {
 			title: 'Create Profile | EXP BLOG',
 			flashMessage: {},
 			errors: errors.mapped(),

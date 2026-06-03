@@ -3,6 +3,7 @@ const { validationResult } = require('express-validator')
 
 // importing Profile model
 const Profile = require('../models/Profile')
+const User = require('../models/User')
 
 // importing error formatter
 const errorFormatter = require('../utils/validationErrorFormatter')
@@ -39,14 +40,50 @@ const createProfileGetController = (req, res, next) => {
 }
 
 // controller funciton for create-profile post route
-const createProfilePostController = (req, res, next) => {
+const createProfilePostController = async (req, res, next) => {
+	// extracting validation errors
 	let errors = validationResult(req).formatWith(errorFormatter)
+	// rerendering page with error if error exists
 	if (!errors.isEmpty()) {
 		res.render('pages/dashboard/create-profile', {
 			title: 'Create Profile | EXP BLOG',
 			flashMessage: {},
 			errors: errors.mapped(),
 		})
+	}
+
+	// extracting from data given by user
+	const { name, title, bio, facebook, twitter, linkedin, github, website } =
+		req.body
+
+	// making profile obj
+	let profile = new Profile({
+		user: req.user._id,
+		name,
+		title,
+		bio,
+		profilePic: req.user.profilePic,
+		links: { facebook, twitter, linkedin, github, website },
+		posts: [],
+		bookmarks: [],
+	})
+
+	try {
+		// new user profile saving to db
+		const newProfile = await profile.save()
+
+		// updating profile obj-id of user model at db
+		await User.findOneAndUpdate(
+			{ _id: req.user._id },
+			{ $set: { profile: newProfile._id } },
+		)
+
+		// after successful profile creation redirecting user to dashboard
+		req.flash('success', 'Profile created successfully!')
+		res.redirect('/dashboard')
+	} catch (err) {
+		console.log(err)
+		next(err)
 	}
 }
 

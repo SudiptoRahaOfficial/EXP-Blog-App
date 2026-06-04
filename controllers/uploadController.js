@@ -85,8 +85,20 @@ const removeProfilePic = (req, res, next) => {
 	}
 }
 
+// controller function for upload post image
+const uploadPostImage = (req, res, next) => {
+	if (req.file) {
+		return res.status(200).json({
+			location: `/uploads/${req.file.filename}`,
+		})
+	}
+
+	return res.status(500).json({ message: 'Server Error!' })
+}
+
 // exporting upload controllers
 module.exports = {
 	uploadProfilePic,
 	removeProfilePic,
+	uploadPostImage,
 }

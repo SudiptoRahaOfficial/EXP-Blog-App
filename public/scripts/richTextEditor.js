@@ -80,27 +80,6 @@ window.onload = function () {
 		// Backend endpoint that handles image uploads
 		images_upload_url: '/uploads/postimage',
 
-		// image upload handler funcion
-		images_upload_handler: function (blobInfo, success, failure) {
-			let headers = new Headers()
-			headers.append('Accept', 'Application/JSON')
-
-			let formData = new FormData()
-			formData.append('post-image', blobInfo.blob(), blobInfo.filename())
-
-			let req = new Request('/uploads/postimage', {
-				method: 'post',
-				headers,
-				mode: 'cors',
-				body: formData
-			})
-
-			fetch(req)
-				.then(res => res.json())
-				.then(data => success(data.imgURL))
-				.catch(() => failure('HTTP Error!'))
-		},
-
 		// Styling only inside the editor
 		content_style: `
 		body {

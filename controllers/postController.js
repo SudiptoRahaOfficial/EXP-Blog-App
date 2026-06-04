@@ -1,3 +1,9 @@
+// extracting validationResult from express-validator
+const { validationResult } = require('express-validator')
+
+// importing error formatter
+const errorFormatter = require('../utils/validationErrorFormatter')
+
 // importing flash
 const Flash = require('../utils/Flash')
 
@@ -11,7 +17,10 @@ const createPostGetController = (req, res, next) => {
 }
 
 // controller funciton for create-post post route
-const createPostPostController = (req, res, next) => {}
+const createPostPostController = (req, res, next) => {
+	// checking validation errors
+	const errors = validationResult(req).formatWith(errorFormatter)
+}
 
 // exporting controllers
 module.exports = {

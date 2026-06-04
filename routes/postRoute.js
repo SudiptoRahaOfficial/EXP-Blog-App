@@ -3,6 +3,7 @@ const router = require('express').Router()
 
 // importing middlewares
 const { isAuthenticated } = require('../middlewares/authMiddleware')
+const upload = require('../middlewares/uploadMiddleware')
 
 // importing validators
 const { postValidator } = require('../validators/postValidator')
@@ -17,7 +18,13 @@ const {
 // create post get route
 router.get('/create', createPostGetController)
 // create post post route
-router.post('/create', isAuthenticated, postValidator, createPostPostController)
+router.post(
+	'/create',
+	isAuthenticated,
+	upload.single('post-thumbnail'),
+	postValidator,
+	createPostPostController,
+)
 
 // exporting router
 module.exports = router

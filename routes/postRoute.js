@@ -16,7 +16,7 @@ const {
 
 // ALL POST ROUTES ----------
 // create post get route
-router.get('/create', createPostGetController)
+router.get('/create', isAuthenticated, createPostGetController)
 // create post post route
 router.post(
 	'/create',

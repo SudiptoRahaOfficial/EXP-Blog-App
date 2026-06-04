@@ -43,7 +43,10 @@ const createPostPostController = async (req, res, next) => {
 
 	// making an array of tags
 	if (tags) {
-		tags = tags.split(',')
+		tags = String(tags)
+			.split(',')
+			.map((tag) => tag.trim())
+			.filter(Boolean)
 	}
 
 	// generating readTime

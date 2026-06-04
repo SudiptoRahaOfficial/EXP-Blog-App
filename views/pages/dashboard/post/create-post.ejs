@@ -11,66 +11,32 @@
 
 		<div class="col-md-10">
 			<div class="card card-body shadow p-5 mx-5">
-                <form 
-                    action="/posts/create-post" 
-                    method="post" 
-                    enctype="multipart/form-data">
-                    <!-- post title field -->
-                    <div class="mb-3">
-                        <label for="title" class="form-label">Enter post title</label>
-                        <input 
-                            type="text"
-                            name="title"
-                            id="title"
-                            class="form-control"
-                        />
-                    </div>
-                    <!-- post body field -->
-                    <div class="mb-3">
-                        <label 
-                            for="tiny-mce-post-body" 
-                            class="form-label"
-                        >Enter post body</label>
-                        <textarea 
-                            name="body" 
-                            class="form-control" 
-                            id="tiny-mce-post-body" 
-                            rows="5"
-                        ></textarea>
-                    </div>
-                    <!-- post tags field -->
-                    <div class="mb-3">
-                        <label for="tags" class="form-label">Tags - max 10</label>
-                        <input 
-                            type="text"
-                            name="tags"
-                            id="tags"
-                            placeholder="tag1, tag2, tag3"
-                            class="form-control"
-                        />
-                    </div>
-                    <!-- post thumbnail upload field -->
-                    <div class="input-group mb-3">
-                        <input 
-                            type="file"
-                            name="post-thumbnail"  
-                            class="form-control" 
-                            id="inputGroupFile02"
-                        />
-                        <label 
-                            class="input-group-text" 
-                            for="inputGroupFile02"
-                        >Upload
-                        </label>
-                    </div>
-                    <!-- submit button field -->
-                    <input 
-                        type="submit" 
-                        class="btn btn-primary" 
-                        value="Create Post"
-                    />
-                </form>
-            </div>
+				<form action="/posts/create-post" method="post" enctype="multipart/form-data">
+					<!-- post title field -->
+					<div class="mb-3">
+						<label for="title" class="form-label">Enter post title</label>
+						<input type="text" name="title" id="title" class="form-control" />
+					</div>
+					<!-- post body field -->
+					<div class="mb-3">
+						<label for="rich-text-editor" class="form-label">Enter post body</label>
+						<textarea name="body" class="form-control" id="rich-text-editor"></textarea>
+					</div>
+					<!-- post tags field -->
+					<div class="mb-3">
+						<label for="tags" class="form-label">Tags - max 10</label>
+						<input type="text" name="tags" id="tags" placeholder="tag1, tag2, tag3" class="form-control" />
+					</div>
+					<!-- post thumbnail upload field -->
+					<div class="input-group mb-3">
+						<input type="file" name="post-thumbnail" class="form-control" id="inputGroupFile02" />
+						<label class="input-group-text" for="inputGroupFile02">Upload
+						</label>
+					</div>
+					<!-- submit button field -->
+					<input type="submit" class="btn btn-primary" value="Create Post" />
+				</form>
+			</div>
 		</div>
 
 	</div>
@@ -78,6 +44,11 @@
 
 <!-- including footer -->
 <%- include('../../../partials/footer.ejs') %>
+
+<!-- linking tiny mce cdn for rich text editor -->
+<script src="https://cdn.tiny.cloud/1/t0f2hs4fevjvfk7x0tnf0vqsfdldau3xz1wg197uamh8rqk7/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script>
+<!-- linking tiny mce custom configuration js file -->
+<script src="/scripts/richTextEditor.js"></script>
 
 </body>
 

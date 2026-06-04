@@ -31,7 +31,10 @@
 					<!-- post tags field -->
 					<div class="mb-3">
 						<label for="tags" class="form-label">Tags - max 10</label>
-						<input type="text" name="tags" id="tags" placeholder="tag1, tag2, tag3" class="form-control" value="<%= value.tags ? value.tags : '' %>" />
+						<input type="text" name="tags" id="tags" placeholder="tag1, tag2, tag3" class="form-control <%= errors.tags ? "is-invalid" : "" %>" value="<%= value.tags ? value.tags : '' %>" />
+						<p class="invalid-feedback">
+							<%= errors.tags && errors.tags %>
+						</p>
 					</div>
 					<!-- post thumbnail upload field -->
 					<div class="input-group mb-3">

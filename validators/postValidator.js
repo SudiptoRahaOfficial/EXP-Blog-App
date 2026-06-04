@@ -25,6 +25,7 @@ const postValidator = [
 			}
 			return true
 		}),
+	body('tags').trim().notEmpty().withMessage(`tags can't be empty`),
 ]
 
 // exporting validator

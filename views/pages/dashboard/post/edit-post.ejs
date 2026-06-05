@@ -4,50 +4,50 @@
 <!-- main content -->
 <section class="my-5" id="editPost">
 	<div class="container">
+		<div class="row">
+			<div class="col-md-2">
+				<h2>left container</h2>
+			</div>
 
-		<div class="col-md-2">
-			<h2>left container</h2>
-		</div>
-
-		<div class="col-md-10">
-			<div class="card card-body shadow p-5 mx-5">
-				<form action="/posts/edit" method="post" enctype="multipart/form-data">
-					<!-- post title field -->
-					<div class="mb-3">
-						<label for="title" class="form-label">Enter post title</label>
-						<input type="text" name="title" id="title" class="form-control <%= errors.title ? "is-invalid" : "" %>" value="<%= value.title ? value.title : '' %>" />
-						<p class="invalid-feedback">
-							<%= errors.title && errors.title %>
-						</p>
-					</div>
-					<!-- post body field -->
-					<div class="mb-3">
-						<label for="rich-text-editor" class="form-label">Enter post body</label>
-						<textarea name="body" class="form-control <%= errors.body ? "is-invalid" : "" %>" id="rich-text-editor"><%= value.body ? value.body : '' %></textarea>
-						<p class="invalid-feedback">
-							<%= errors.body && errors.body %>
-						</p>
-					</div>
-					<!-- post tags field -->
-					<div class="mb-3">
-						<label for="tags" class="form-label">Tags - max 10</label>
-						<input type="text" name="tags" id="tags" placeholder="tag1, tag2, tag3" class="form-control <%= errors.tags ? "is-invalid" : "" %>" value="<%= value.tags ? value.tags : '' %>" />
-						<p class="invalid-feedback">
-							<%= errors.tags && errors.tags %>
-						</p>
-					</div>
-					<!-- post thumbnail upload field -->
-					<div class="input-group mb-3">
-						<input type="file" name="post-thumbnail" class="form-control" id="inputGroupFile02" />
-						<label class="input-group-text" for="inputGroupFile02">Upload
-						</label>
-					</div>
-					<!-- submit button field -->
-					<input type="submit" class="btn btn-primary" value="Update Post" />
-				</form>
+			<div class="col-md-10">
+				<div class="card card-body shadow p-5 mx-5">
+					<form action="/posts/edit" method="post" enctype="multipart/form-data">
+						<!-- post title field -->
+						<div class="mb-3">
+							<label for="title" class="form-label">Enter post title</label>
+							<input type="text" name="title" id="title" class="form-control <%= errors.title ? "is-invalid" : "" %>" value="<%= value.title ? value.title : '' %>" />
+							<p class="invalid-feedback">
+								<%= errors.title && errors.title %>
+							</p>
+						</div>
+						<!-- post body field -->
+						<div class="mb-3">
+							<label for="rich-text-editor" class="form-label">Enter post body</label>
+							<textarea name="body" class="form-control <%= errors.body ? "is-invalid" : "" %>" id="rich-text-editor"><%= value.body ? value.body : '' %></textarea>
+							<p class="invalid-feedback">
+								<%= errors.body && errors.body %>
+							</p>
+						</div>
+						<!-- post tags field -->
+						<div class="mb-3">
+							<label for="tags" class="form-label">Tags - max 10</label>
+							<input type="text" name="tags" id="tags" placeholder="tag1, tag2, tag3" class="form-control <%= errors.tags ? "is-invalid" : "" %>" value="<%= value.tags ? value.tags : '' %>" />
+							<p class="invalid-feedback">
+								<%= errors.tags && errors.tags %>
+							</p>
+						</div>
+						<!-- post thumbnail upload field -->
+						<div class="input-group mb-3">
+							<input type="file" name="post-thumbnail" class="form-control" id="inputGroupFile02" />
+							<label class="input-group-text" for="inputGroupFile02">Upload
+							</label>
+						</div>
+						<!-- submit button field -->
+						<input type="submit" class="btn btn-primary" value="Update Post" />
+					</form>
+				</div>
 			</div>
 		</div>
-
 	</div>
 </section>
 

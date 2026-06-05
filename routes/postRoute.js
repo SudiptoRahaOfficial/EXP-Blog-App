@@ -12,11 +12,14 @@ const { postValidator } = require('../validators/postValidator')
 const {
 	createPostGetController,
 	createPostPostController,
+	editPostGetController,
+	editPostPostController,
 } = require('../controllers/postController')
 
 // ALL POST ROUTES ----------
 // create post get route
 router.get('/create', isAuthenticated, createPostGetController)
+
 // create post post route
 router.post(
 	'/create',
@@ -24,6 +27,18 @@ router.post(
 	upload.single('post-thumbnail'),
 	postValidator,
 	createPostPostController,
+)
+
+// edit post get route
+router.get('/edit', isAuthenticated, editPostGetController)
+
+// edit post post route
+router.post(
+	'/edit',
+	isAuthenticated,
+	upload.single('post-thumbnail'),
+	postValidator,
+	editPostPostController,
 )
 
 // exporting router

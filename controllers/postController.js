@@ -7,6 +7,9 @@ const readingTime = require('reading-time')
 // importing error formatter
 const errorFormatter = require('../utils/validationErrorFormatter')
 
+// importing tagsParser
+const tagsParser = require('../utils/tagsParser')
+
 // importing flash
 const Flash = require('../utils/Flash')
 
@@ -42,12 +45,7 @@ const createPostPostController = async (req, res, next) => {
 	}
 
 	// making an array of tags
-	if (tags) {
-		tags = String(tags)
-			.split(',')
-			.map((tag) => tag.trim())
-			.filter(Boolean)
-	}
+	tags = tagsParser(tags)
 
 	// generating readTime
 	let readTime = readingTime(body).text
@@ -88,8 +86,23 @@ const createPostPostController = async (req, res, next) => {
 	}
 }
 
+// controller function for edit-post get route
+const editPostGetController = (req, res, next) => {
+	res.render('pages/dashboard/post/edit-post', {
+		title: 'Edit Post | EXP BLOG',
+		errors: {},
+		value: {},
+		flashMessage: Flash.getMessage(req),
+	})
+}
+
+// controller funciton for edit-post post route
+const editPostPostController = (req, res, next) => {}
+
 // exporting controllers
 module.exports = {
 	createPostGetController,
 	createPostPostController,
+	editPostGetController,
+	editPostPostController,
 }

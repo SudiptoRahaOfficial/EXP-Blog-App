@@ -4,6 +4,9 @@ const dashboardRoutes = require('./dashboardRoute')
 const postRoutes = require('./postRoute')
 const uploadRoutes = require('./uploadRoute')
 
+// importing api routes
+const apiRoutes = require('../apis/routes/apiRoutes')
+
 // importing error handler middlewares
 const {
 	notFound,
@@ -31,6 +34,11 @@ const routes = [
 	{
 		path: '/dashboard',
 		controller: dashboardRoutes,
+	},
+	// api routes
+	{
+		path: '/api',
+		controller: apiRoutes,
 	},
 	// root route
 	{

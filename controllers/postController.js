@@ -99,7 +99,7 @@ const editPostGetController = async (req, res, next) => {
 		if (!post) {
 			let error = new Error('404 page not found')
 			error.status = 404
-			return error
+			return next(error)
 		}
 		// if post exists
 		res.render('pages/dashboard/post/edit-post', {
@@ -114,7 +114,59 @@ const editPostGetController = async (req, res, next) => {
 }
 
 // controller funciton for edit-post post route
-const editPostPostController = (req, res, next) => {}
+const editPostPostController = async (req, res, next) => {
+	// extracting user given data
+	let { title, body, tags } = req.body
+
+	// extracting postId
+	const postId = req.params.postId
+
+	try {
+		// finding post according to requested user
+		const post = await Post.findOne({ author: req.user._id, _id: postId })
+
+		// if post not exists
+		if (!post) {
+			let error = new Error('404 page not found')
+			error.status = 404
+			return next(error)
+		}
+
+		// checking validation errors
+		const errors = validationResult(req).formatWith(errorFormatter)
+		// if error exists rerendering create-post page with errors
+		if (!errors.isEmpty()) {
+			return res.render('pages/dashboard/post/edit-post', {
+				title: 'Edit Post | EXP BLOG',
+				errors: errors.mapped(),
+				flashMessage: Flash.getMessage(req),
+				post,
+			})
+		}
+
+		// making an array of tags
+		tags = tagsParser(tags)
+
+		// replacing thumbnail image
+		let thumbnail = post.thumbnail
+		if (req.file) thumbnail = `/uploads/${req.file.filename}`
+
+		// updating post at db
+		await Post.findOneAndUpdate(
+			{ _id: post._id },
+			{ $set: { title, body, tags, thumbnail } },
+			{ new: true },
+		)
+
+		// creating flash message
+		req.flash('success', 'Post updated successfully')
+		// redirecting to post
+		res.redirect(`/posts/edit/${post._id}`)
+		req.flash
+	} catch (err) {
+		next(err)
+	}
+}
 
 // exporting controllers
 module.exports = {

@@ -15,11 +15,12 @@ const {
 	editPostGetController,
 	editPostPostController,
 	deletePostController,
+	allPostsGetController,
 } = require('../controllers/postController')
 
 // ALL POST ROUTES ----------
 // delete post route
-router.delete('/delete/:postId', isAuthenticated, deletePostController)
+router.get('/delete/:postId', isAuthenticated, deletePostController)
 
 // edit post get route
 router.get('/edit/:postId', isAuthenticated, editPostGetController)
@@ -44,6 +45,9 @@ router.post(
 	postValidator,
 	createPostPostController,
 )
+
+// all posts get route
+router.get('/', isAuthenticated, allPostsGetController)
 
 // exporting router
 module.exports = router

@@ -200,6 +200,22 @@ const deletePostController = async (req, res, next) => {
 	}
 }
 
+// controller function for all posts get route
+const allPostsGetController = async (req, res, next) => {
+	try {
+		// fetching all db stored posts of requested user
+		const posts = await Post.find({ author: req.user._id })
+		// rendering all posts page
+		res.render('pages/dashboard/post/posts', {
+			title: 'All Posts | EXP BLOG',
+			flashMessage: Flash.getMessage(req),
+			posts,
+		})
+	} catch (err) {
+		next(err)
+	}
+}
+
 // exporting controllers
 module.exports = {
 	createPostGetController,
@@ -207,4 +223,5 @@ module.exports = {
 	editPostGetController,
 	editPostPostController,
 	deletePostController,
+	allPostsGetController,
 }

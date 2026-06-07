@@ -14,20 +14,12 @@ const {
 	createPostPostController,
 	editPostGetController,
 	editPostPostController,
+	deletePostController,
 } = require('../controllers/postController')
 
 // ALL POST ROUTES ----------
-// create post get route
-router.get('/create', isAuthenticated, createPostGetController)
-
-// create post post route
-router.post(
-	'/create',
-	isAuthenticated,
-	upload.single('post-thumbnail'),
-	postValidator,
-	createPostPostController,
-)
+// delete post route
+router.delete('/delete/:postId', isAuthenticated, deletePostController)
 
 // edit post get route
 router.get('/edit/:postId', isAuthenticated, editPostGetController)
@@ -39,6 +31,18 @@ router.post(
 	upload.single('post-thumbnail'),
 	postValidator,
 	editPostPostController,
+)
+
+// create post get route
+router.get('/create', isAuthenticated, createPostGetController)
+
+// create post post route
+router.post(
+	'/create',
+	isAuthenticated,
+	upload.single('post-thumbnail'),
+	postValidator,
+	createPostPostController,
 )
 
 // exporting router

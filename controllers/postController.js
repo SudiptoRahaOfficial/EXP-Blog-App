@@ -162,7 +162,39 @@ const editPostPostController = async (req, res, next) => {
 		req.flash('success', 'Post updated successfully')
 		// redirecting to post
 		res.redirect(`/posts/edit/${post._id}`)
-		req.flash
+	} catch (err) {
+		next(err)
+	}
+}
+
+// controller function for delete post
+const deletePostController = async (req, res, next) => {
+	// extracting postId
+	let { postId } = req.params
+
+	try {
+		// finding post according to requested user
+		const post = await Post.findOne({ author: req.user._id, _id: postId })
+
+		// if post not exists
+		if (!post) {
+			let error = new Error('404 page not found')
+			error.status = 404
+			return next(error)
+		}
+
+		// if post exists deleting post from Posts collection at db
+		await Post.findOneAndDelete({ _id: postId })
+		// updating this delete on profile at db
+		await Profile.findOneAndUpdate(
+			{ user: req.user._id },
+			{ $pull: { posts: postId } },
+		)
+
+		// creating flash message
+		req.flash('success', 'Post deleted successfully')
+		// redirecting to all posts
+		res.redirect(`/posts`)
 	} catch (err) {
 		next(err)
 	}
@@ -174,4 +206,5 @@ module.exports = {
 	createPostPostController,
 	editPostGetController,
 	editPostPostController,
+	deletePostController,
 }

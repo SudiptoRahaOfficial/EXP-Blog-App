@@ -79,6 +79,7 @@ window.onload = function () {
 
 		// Backend endpoint that handles image uploads
 		images_upload_url: '/uploads/postimage',
+		relative_urls: false,
 
 		// Styling only inside the editor
 		content_style: `

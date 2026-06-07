@@ -30,11 +30,11 @@ router.post(
 )
 
 // edit post get route
-router.get('/edit', isAuthenticated, editPostGetController)
+router.get('/edit/:postId', isAuthenticated, editPostGetController)
 
 // edit post post route
 router.post(
-	'/edit',
+	'/edit/:postId',
 	isAuthenticated,
 	upload.single('post-thumbnail'),
 	postValidator,

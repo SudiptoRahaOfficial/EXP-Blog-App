@@ -87,13 +87,30 @@ const createPostPostController = async (req, res, next) => {
 }
 
 // controller function for edit-post get route
-const editPostGetController = (req, res, next) => {
-	res.render('pages/dashboard/post/edit-post', {
-		title: 'Edit Post | EXP BLOG',
-		errors: {},
-		value: {},
-		flashMessage: Flash.getMessage(req),
-	})
+const editPostGetController = async (req, res, next) => {
+	// extracting postId
+	const postId = req.params.postId
+
+	try {
+		// finding post according to requested user
+		const post = await Post.findOne({ author: req.user._id, _id: postId })
+
+		// if post not exists
+		if (!post) {
+			let error = new Error('404 page not found')
+			error.status = 404
+			return error
+		}
+		// if post exists
+		res.render('pages/dashboard/post/edit-post', {
+			title: 'Edit Post | EXP BLOG',
+			errors: {},
+			post,
+			flashMessage: Flash.getMessage(req),
+		})
+	} catch (err) {
+		next(err)
+	}
 }
 
 // controller funciton for edit-post post route

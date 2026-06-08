@@ -5,8 +5,6 @@ const Post = require('../../models/Post')
 const likesGetController = async (req, res, next) => {
 	// extracting postId
 	const { postId } = req.params
-	// extracting userId
-	const userId = req.user._id
 
 	// initializing liked with null
 	let liked = null
@@ -17,6 +15,9 @@ const likesGetController = async (req, res, next) => {
 			error: `You're not authenticated user`,
 		})
 	}
+
+	// extracting userId
+	const userId = req.user._id
 
 	try {
 		// finding requested post to like
@@ -66,8 +67,6 @@ const likesGetController = async (req, res, next) => {
 const dislikesGetController = async (req, res, next) => {
 	// extracting postId
 	const { postId } = req.params
-	// extracting userId
-	const userId = req.user._id
 
 	// initializing liked with null
 	let disliked = null
@@ -78,6 +77,9 @@ const dislikesGetController = async (req, res, next) => {
 			error: `You're not authenticated user`,
 		})
 	}
+
+	// extracting userId
+	const userId = req.user._id
 
 	try {
 		// finding requested post to dislike

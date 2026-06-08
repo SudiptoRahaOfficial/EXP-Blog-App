@@ -43,6 +43,15 @@
 								posted by _<%= post.author.username %>,
 								<%= post.readTime %> - to read
 							</small>
+							<% if (user) { %>
+								<span class="ml-auto bookmark" data-post="<%= post._id %>">
+									<% if (bookmarks.includes(post._id)) { %>
+										<img src="/images/icons/bookmarked.png" alt="bookmarked" width="20">
+									<% } else { %>
+										<img src="/images/icons/bookmark.png" alt="bookmark" width="20">
+									<% } %>
+								</span>
+							<% } %>
 						</div>
 					</div>
 					<% } %>

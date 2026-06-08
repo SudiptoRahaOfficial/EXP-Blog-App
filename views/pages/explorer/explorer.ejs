@@ -1,0 +1,60 @@
+<!-- including header -->
+<%- include('../../partials/header.ejs') %>
+
+<!-- main content -->
+<section class="my-5">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 offset-md-3">
+				<!-- filter tabs -->
+				<section class="mb-5">
+                    <!-- latest -->
+					<a href="/explorer?filter=latest" class="btn <%= filter === 'latest' ? 'btn-primary' : 'btn-secondary' %>">Latest</a>
+                    <!-- week -->
+					<a href="/explorer?filter=week" class="btn <%= filter === 'week' ? 'btn-primary' : 'btn-secondary' %>">Week</a>
+                    <!-- month -->
+					<a href="/explorer?filter=month" class="btn <%= filter === 'month' ? 'btn-primary' : 'btn-secondary' %>">Month</a>
+                    <!-- all -->
+					<a href="/explorer?filter=all" class="btn <%= filter === 'all' ? 'btn-primary' : 'btn-secondary' %>">All</a>
+				</section>
+
+                <!-- post exploeres -->
+				<section>
+					<% if (posts.length === 0) { %>
+                        <p class="text-center text-muted">
+                            There is nothing to show
+                        </p>
+					<% } else { %>
+                        <% for (let post of posts) { %>
+                            <div class="card card-body mb-3">
+                                <% if (post.thumbnail) { %>
+                                    <img src="<%= post.thumbnail %>" alt="<%= post.title %>" class="img-fluid mb-2">
+                                <% } %>
+                                <a href="/explorer/<%= post._id %>" style="color: #222;">
+                                    <h5><%= post.title %></h5>
+                                    <p class="mb-4">
+                                        <%= truncate(post.body) %>
+                                    </p>
+                                </a>
+                                <div class="d-flex">
+                                    <small>
+                                        <%= moment(post.createdAt) %>,
+                                        posted by _<%= post.author.username %>,
+                                        <%= post.readTime %> - to read
+                                    </small>
+                                </div>
+                            </div>
+                        <% } %>
+					<% } %>
+				</section>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- including footer -->
+<%- include('../../partials/footer.ejs') %>
+
+</body>
+
+</html>

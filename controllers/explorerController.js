@@ -1,5 +1,6 @@
 // importing models
 const Post = require('../models/Post')
+const Profile = require('../models/Profile')
 
 // importing utilitis
 const Flash = require('../utils/Flash')
@@ -29,6 +30,18 @@ const explorerGetController = async (req, res, next) => {
 		let totalPost = await Post.countDocuments()
 		let totalPage = totalPost / itemPerPage
 
+		// initializing bookmark with empty array
+		let bookmarks = []
+		// if user authenticated
+		if (req.user) {
+			// finding requested user's profile
+			const profile = await Profile.findOne({ user: req.user._id })
+			// checking user's profile exists or not
+			if (profile) {
+				bookmarks = profile.bookmarks
+			}
+		}
+
 		// rendering explorer page
 		res.render('pages/explorer/explorer', {
 			title: 'Explore All Posts | EXP BLOG',
@@ -38,6 +51,7 @@ const explorerGetController = async (req, res, next) => {
 			itemPerPage,
 			currentPage,
 			totalPage,
+			bookmarks,
 		})
 	} catch (err) {
 		next(err)

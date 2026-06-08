@@ -13,6 +13,7 @@ const {
 	likesGetController,
 	dislikesGetController,
 } = require('../controllers/likeDislikeController')
+const { bookmarksGetController } = require('../controllers/bookmarkController')
 
 // ALL API ROUTES ----------
 // comments post route
@@ -30,6 +31,9 @@ router.get('/likes/:postId', isAuthenticated, likesGetController)
 
 // dislikes get route
 router.get('/dislikes/:postId', isAuthenticated, dislikesGetController)
+
+// bookmarks get route
+router.get('/bookmarks/:postId', isAuthenticated, bookmarksGetController)
 
 // exporting router
 module.exports = router

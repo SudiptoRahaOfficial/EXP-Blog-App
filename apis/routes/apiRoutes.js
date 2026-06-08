@@ -9,6 +9,10 @@ const {
 	commentPostController,
 	repliesPostController,
 } = require('../controllers/commentController')
+const {
+	likesGetController,
+	dislikesGetController,
+} = require('../controllers/likeDislikeController')
 
 // ALL API ROUTES ----------
 // comments post route
@@ -20,6 +24,12 @@ router.post(
 	isAuthenticated,
 	repliesPostController,
 )
+
+// likes get route
+router.get('/likes/:postId', isAuthenticated, likesGetController)
+
+// dislikes get route
+router.get('/dislikes/:postId', isAuthenticated, dislikesGetController)
 
 // exporting router
 module.exports = router

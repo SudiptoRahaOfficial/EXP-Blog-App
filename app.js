@@ -1,4 +1,4 @@
-// importing dotenv to parse env variables
+// importing dotenv to parse environment variables
 require('dotenv').config()
 
 // importing dependencis

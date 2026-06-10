@@ -40,8 +40,8 @@
 						<div class="d-flex">
 							<small>
 								<%= moment(post.createdAt) %>,
-								posted by _<%= post.author.username %>,
-								<%= post.readTime %> - to read
+								posted by <b><%= post.author.username %></b>,
+								<%= post.readTime %>
 							</small>
 							<% if (user) { %>
 								<span class="ms-auto bookmark" data-post="<%= post._id %>">

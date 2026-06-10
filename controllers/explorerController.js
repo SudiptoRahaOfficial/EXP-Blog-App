@@ -58,7 +58,64 @@ const explorerGetController = async (req, res, next) => {
 	}
 }
 
+// controller function for single post get route
+const singlePostGetController = async (req, res, next) => {
+	// extracting postId
+	const { postId } = req.params
+
+	try {
+		// finding requested post & populating required datas
+		let post = await Post.findById(postId)
+			.populate('author', 'username profilePic')
+			.populate({
+				path: 'comments',
+				populate: {
+					path: 'user',
+					select: 'username profilePic',
+				},
+			})
+			.populate({
+				path: 'comments',
+				populate: {
+					path: 'replies.user',
+					select: 'username profilePic',
+				},
+			})
+
+		// checking post exists or not
+		if (!post) {
+			// throwing 404 error
+			let error = new Error('404 page not found')
+			error.status = 404
+			throw error
+		}
+
+		// initializing bookmark with empty array
+		let bookmarks = []
+		// if user authenticated
+		if (req.user) {
+			// finding requested user's profile
+			const profile = await Profile.findOne({ user: req.user._id })
+			// checking user's profile exists or not
+			if (profile) {
+				bookmarks = profile.bookmarks
+			}
+		}
+
+		// rendering post details page
+		res.render('pages/explorer/postDetails', {
+			title: `${post.title} | EXP BLOG`,
+			flashMessage: Flash.getMessage(req),
+			post,
+			bookmarks,
+		})
+	} catch (err) {
+		next(err)
+	}
+}
+
 // exporting controllers
 module.exports = {
 	explorerGetController,
+	singlePostGetController,
 }

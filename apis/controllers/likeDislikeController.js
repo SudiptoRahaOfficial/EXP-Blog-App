@@ -52,7 +52,7 @@ const likesGetController = async (req, res, next) => {
 		// res back to user
 		return res.status(200).json({
 			liked,
-			totalLikes: updatedPost.likes.length,
+			totallikes: updatedPost.likes.length,
 			totaldislikes: updatedPost.dislikes.length,
 		})
 	} catch (err) {
@@ -114,7 +114,7 @@ const dislikesGetController = async (req, res, next) => {
 		// res back to user
 		return res.status(200).json({
 			disliked,
-			totalLikes: updatedPost.likes.length,
+			totallikes: updatedPost.likes.length,
 			totaldislikes: updatedPost.dislikes.length,
 		})
 	} catch (err) {

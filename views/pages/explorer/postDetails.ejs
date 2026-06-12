@@ -64,8 +64,8 @@
 							<p class="text-center text-muted">This post has no comments yet</p>
 							<% } else { %>
                                 <% for (let comment of post.comments.reverse()) { %>
-                                    <div class="d-flex border">
-                                        <img src="<%= comment.user.profilePic %>" class="flex-shrink-0 me-3" alt="user-of-comment" style="width: 30px;">
+                                    <div class="d-flex border p-2 mb-2">
+                                        <img src="<%= comment.user.profilePic %>" class="rounded-circle flex-shrink-0 me-3" alt="commenter" style="width: 40px; height: 40px; object-fit: cover; object-position: center;">
 
                                         <div class="my-3">
                                             <p><%= comment.body %></p>
@@ -73,7 +73,7 @@
                                                 <% if (comment.replies.length > 0) { %>
                                                     <% for (let reply of comment.replies) { %>
                                                         <div class="d-flex">
-                                                            <img src="<%= reply.user.profilePic %>" class="flex-shrink-0 me-3" alt="user-of-reply" style="width: 20px;">
+                                                            <img src="<%= reply.user.profilePic %>" class="rounded-circle flex-shrink-0 me-3" alt="replier" style="width: 30px; height: 30px; object-fit: cover; object-position: center;">
   
                                                             <div>
                                                                 <p><%= reply.body %></p>
@@ -106,6 +106,8 @@
 <script src="/scripts/bookmarks.js"></script>
 <!-- linking likeDislike script -->
 <script src="/scripts/likeDislike.js"></script>
+<!-- linking comment script -->
+<script src="/scripts/comment.js"></script>
 
 </body>
 

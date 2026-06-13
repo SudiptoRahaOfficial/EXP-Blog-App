@@ -29,6 +29,7 @@ const searchResultGetController = async (req, res, next) => {
 			itemPerPage,
 			currentPage,
 			totalPage,
+			posts,
 		})
 	} catch (err) {
 		next(err)

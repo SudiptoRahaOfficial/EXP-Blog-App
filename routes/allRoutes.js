@@ -1,6 +1,7 @@
 // importing all routes
 const authRoutes = require('./authRoute')
 const explorerRoutes = require('./explorerRoute')
+const searchRoutes = require('./searchRoute')
 const dashboardRoutes = require('./dashboardRoute')
 const postRoutes = require('./postRoute')
 const uploadRoutes = require('./uploadRoute')
@@ -40,6 +41,11 @@ const routes = [
 	{
 		path: '/explorer',
 		controller: explorerRoutes,
+	},
+	// search routes
+	{
+		path: '/search',
+		controller: searchRoutes,
 	},
 	// api routes
 	{

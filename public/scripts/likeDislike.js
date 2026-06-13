@@ -14,7 +14,7 @@ function likeDislikeController(type, postId) {
 }
 
 // starting workflow on page load
-window.onload = function () {
+window.addEventListener('load', function () {
 	// selecting like and dislike buttons here
 	const likeBtn = document.getElementById('likeBtn')
 	const dislikeBtn = document.getElementById('dislikeBtn')
@@ -34,7 +34,7 @@ window.onload = function () {
 			})
 			.catch((err) => {
 				console.log(err)
-				alert(err.response.data.error)
+				alert(err.message)
 			})
 	})
 
@@ -53,7 +53,7 @@ window.onload = function () {
 			})
 			.catch((err) => {
 				console.log(err)
-				alert(err.response.data.error)
+				alert(err.message)
 			})
 	})
-}
+})

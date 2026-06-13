@@ -1,4 +1,4 @@
-window.onload = function () {
+window.addEventListener('load', function () {
 	const bookmarks = document.getElementsByClassName('bookmark')
 	;[...bookmarks].forEach((bookmark) => {
 		bookmark.style.cursor = 'pointer'
@@ -26,9 +26,9 @@ window.onload = function () {
 					}
 				})
 				.catch((err) => {
-					console.error(e.response.data.error)
-					alert(e.response.data.error)
+					console.error(err)
+					alert(err.message)
 				})
 		})
 	})
-}
+})

@@ -13,7 +13,7 @@ const searchResultGetController = async (req, res, next) => {
 
 	try {
 		// search functionality for posts
-		let posts = Post.find({ $text: { $search: term } })
+		let posts = await Post.find({ $text: { $search: term } })
 			.skip(itemPerPage * currentPage - itemPerPage)
 			.limit(itemPerPage)
 

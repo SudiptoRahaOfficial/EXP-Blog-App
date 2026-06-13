@@ -1,0 +1,65 @@
+<!-- including header -->
+<%- include('../../partials/header.ejs') %>
+
+<!-- main content -->
+<section class="my-5">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 offset-md-3">
+
+				<!-- search results -->
+                <h5>Search Results for <%= searchTerm %></h5>
+				<% if (posts.length === 0) { %>
+					<p class="text-center text-muted my-5">No search results to show</p>
+				<% } else { %>
+					<% for (let post of posts) { %>
+						<div class="card card-body">
+							<a href="/explorer/<%= post._id %>" style="color: #222;">
+								<h5><%= post.title %></h5>
+								<p><%= truncate(post.body) %></p>
+							</a>
+						</div>
+					<% } %>
+				<% } %>
+
+				<!-- pagination -->
+				<% if (totalPage > 1) { %>
+				<nav aria-label="Page navigation example text-center">
+					<ul class="pagination">
+						<!-- previous btn -->
+						<li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+							<a class="page-link" href="<%= `/search?term=${term}&page=${currentPage-1}` %>" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+						</li>
+
+						<!-- page numbers -->
+						<% for (let i = 1; i <= totalPage; i++) { %>
+							<li class="page-item <%= currentPage === i ? 'active' : '' %>">
+								<a class="page-link" href="<%= `/search?term=${term}&page=${i}` %>" aria-label="Previous">
+									<%= i %>
+								</a>
+							</li>
+						<% } %>
+
+						<!-- next btn -->
+						<li class="page-item <%= currentPage === totalPage ? 'disabled' : '' %>">
+							<a class="page-link" href="<%= `/search?term=${term}&page=${currentPage+1}` %>" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+							</a>
+						</li>
+					</ul>
+				</nav>
+				<% } %>
+
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- including footer -->
+<%- include('../../partials/footer.ejs') %>
+
+</body>
+
+</html>

@@ -173,6 +173,27 @@ const editProfilePostController = async (req, res, next) => {
 	}
 }
 
+// controller function for bookmarks get route
+const bookmarksGetController = async (req, res, next) => {
+	try {
+		// finding requested profile & populating required data
+		let profile = await Profile.findOne({ user: req.user._id }).populate({
+			path: 'bookmarks',
+			model: 'Post',
+			select: 'title thumbnail',
+		})
+
+		// rendering bookmarks page
+		res.render('pages/dashboard/bookmarks', {
+			title: 'Bookmarks | EXP BLOG',
+			flashMessage: Flash.getMessage(req),
+			posts: profile.bookmarks,
+		})
+	} catch (err) {
+		next(err)
+	}
+}
+
 // exporting controllers
 module.exports = {
 	dashboardGetController,
@@ -180,4 +201,5 @@ module.exports = {
 	createProfilePostController,
 	editProfileGetController,
 	editProfilePostController,
+	bookmarksGetController,
 }

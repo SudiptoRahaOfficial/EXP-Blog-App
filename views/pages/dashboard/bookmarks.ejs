@@ -1,0 +1,59 @@
+<!-- including header -->
+<%- include('../../partials/header.ejs') %>
+
+<!-- croppie js : css and js cdn links -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.js" integrity="sha512-vUJTqeDCu0MKkOhuI83/MEX5HSNPW+Lw46BA775bAWIp1Zwgz3qggia/t2EnSGB9GoS2Ln6npDmbJTdNhHy1Yw==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+
+<!-- linking custom js file -->
+<script src="/scripts/profilePicUpload.js" defer></script>
+
+<!-- main content -->
+<section class="my-5" id="createProfile">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2">
+				<!-- including side navigation bar -->
+				<%- include('../../partials/sideNavBar.ejs') %>
+			</div>
+
+			<div class="col-md-10">
+				<div class="row">
+					<div class="card shadow p-2">
+
+						<h4 class="text-center my-5">List of all bookmarks</h4>
+
+						<div class="row">
+                            <% if (posts.length === 0) { %>
+                                <div class="text-center text-muted">
+                                    <p>No bookmarked posts available</p>
+                                </div>
+                            <% } else { %>
+                                <% for (let post of posts.reverse()) { %>
+                                    <div class="card col-sm-3 m-3">
+                                        <% if (post.thumbnail) { %>
+                                            <img src="<%= post.thumbnail %>" alt="<%= post.title %>" class="img-fluid card-img-top mt-3" />
+                                        <% } %>
+                                        <div class="card-body">
+                                            <a href="/explorer/<%= post._id %>" style="color: #222;">
+                                                <h5><%= post.title %></h5>
+                                            </a>
+                                        </div>
+                                    </div>
+                                <% } %>
+                            <% } %>
+					    </div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- including footer -->
+<%- include('../../partials/footer.ejs') %>
+
+</body>
+
+</html>

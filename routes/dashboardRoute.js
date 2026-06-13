@@ -14,9 +14,13 @@ const {
 	createProfilePostController,
 	editProfileGetController,
 	editProfilePostController,
+	bookmarksGetController,
 } = require('../controllers/dashboardController')
 
 // ALL DASHBOARD ROUTES ----------
+
+// bookmarks get route
+router.get('/bookmarks', isAuthenticated, bookmarksGetController)
 
 // edit-profile get route
 router.get('/edit-profile', isAuthenticated, editProfileGetController)

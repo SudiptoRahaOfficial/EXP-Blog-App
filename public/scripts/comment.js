@@ -29,7 +29,7 @@ function createComment(comment) {
         <img
             src="${escapeHTML(comment.user.profilePic || '/images/default-avatar.png')}"
             class="rounded-circle flex-shrink-0 me-3"
-            style="width: 40px; height: 40px; object-fit: cover; object-position: center;"
+            style="width: 30px; height: 30px; object-fit: cover; object-position: center;"
             alt="commenter"
             onerror="this.src='/images/default-avatar.png'"
         />
@@ -49,6 +49,28 @@ function createComment(comment) {
 
 	let div = document.createElement('div')
 	div.className = 'd-flex border p-2 mb-2'
+	div.innerHTML = innerHTML
+
+	return div
+}
+
+// fucntion for create reply
+function createReply(reply) {
+	let innerHTML = `
+        <img
+            src="${escapeHTML(reply.profilePic || '/images/default-avatar.png')}"
+            class="rounded-circle flex-shrink-0 me-3"
+            style="width: 20px; height: 20px; object-fit: cover; object-position: center;"
+            alt="commenter"
+            onerror="this.src='/images/default-avatar.png'"
+        />
+        <div class="flex-grow-1 my-3">
+            <p class="mb-1">${escapeHTML(reply.body)}</p>
+        </div>
+    `
+
+	let div = document.createElement('div')
+	div.className = 'd-flex p-2 mb-2'
 	div.innerHTML = innerHTML
 
 	return div
@@ -86,6 +108,40 @@ window.onload = function () {
 					})
 			} else {
 				alert('please enter a valid comment!')
+			}
+		}
+	})
+
+	commentHolder.addEventListener('keypress', (event) => {
+		if (commentHolder.hasChildNodes(event.target)) {
+			if (event.key.toLowerCase() === 'enter') {
+				let commentId = event.target.dataset.comment
+				let value = event.target.value
+
+				if (value) {
+					let data = { body: value }
+					let req = generateRequest(
+						`/api/comments/replies/${commentId}`,
+						'post',
+						data,
+					)
+					fetch(req)
+						.then((res) => res.json())
+						.then((data) => {
+							let replyElement = createReply(data)
+							let parent = event.target.parentElement
+							parent.previousElementSibling.appendChild(
+								replyElement,
+							)
+							event.target.value = ''
+						})
+						.catch((error) => {
+							console.log(error)
+							alert(error.message)
+						})
+				} else {
+					alert('please enter a valid reply')
+				}
 			}
 		}
 	})

@@ -1,0 +1,60 @@
+<!-- including header -->
+<%- include('../../partials/header.ejs') %>
+
+<!-- main content -->
+<section class="my-5">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 offset-md-3">
+
+                <div class="card card-body shadow px-5">
+                    <div class="text-center my-4">
+                        <img src="<%= author.profilePic %>" alt="author" class="img-fluid img-thumbnail" width="150">
+                    </div>
+                    <br>
+                    <div>
+                        Name: <strong><%= author.profile.name %></strong> <br> <br>
+                        Title: <strong><%= author.profile.title %></strong> <br> <br>
+                        Bio: <p style="display: inline;"><%=author.profile.bio%></p> <br> <br>
+
+                        <div class="d-flex justify-content-evenly my-4">
+                            <% if (author.profile.links.facebook) { %>
+                                <a href="<%= author.profile.links.facebook %>" target="_blank">
+                                    <img src="/images/icons/facebook.png" alt="facebook-icon" width="25">
+                                </a>
+                            <% } %>
+                            <% if (author.profile.links.twitter) { %>
+                                <a href="<%= author.profile.links.twitter %>" target="_blank">
+                                    <img src="/images/icons/twitter.png" alt="facebook-icon" width="25">
+                                </a>
+                            <% } %>
+                            <% if (author.profile.links.linkedin) { %>
+                                <a href="<%= author.profile.links.linkedin %>" target="_blank">
+                                    <img src="/images/icons/linkedin.png" alt="facebook-icon" width="25">
+                                </a>
+                            <% } %>
+                            <% if (author.profile.links.github) { %>
+                                <a href="<%= author.profile.links.github %>" target="_blank">
+                                    <img src="/images/icons/github.png" alt="facebook-icon" width="25">
+                                </a>
+                            <% } %>
+                            <% if (author.profile.links.website) { %>
+                                <a href="<%= author.profile.links.website %>" target="_blank">
+                                    <img src="/images/icons/website.png" alt="facebook-icon" width="25">
+                                </a>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- including footer -->
+<%- include('../../partials/footer.ejs') %>
+
+</body>
+
+</html>

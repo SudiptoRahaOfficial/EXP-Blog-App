@@ -65,7 +65,7 @@
 							<% } else { %>
                                 <% for (let comment of post.comments.reverse()) { %>
                                     <div class="d-flex border p-2 mb-2">
-                                        <img src="<%= comment.user.profilePic %>" class="rounded-circle flex-shrink-0 me-3" alt="commenter" style="width: 40px; height: 40px; object-fit: cover; object-position: center;">
+                                        <img src="<%= comment.user.profilePic %>" class="rounded-circle flex-shrink-0 me-3" alt="commenter" style="width: 30px; height: 30px; object-fit: cover; object-position: center;">
 
                                         <div class="my-3">
                                             <p><%= comment.body %></p>
@@ -73,7 +73,7 @@
                                                 <% if (comment.replies.length > 0) { %>
                                                     <% for (let reply of comment.replies) { %>
                                                         <div class="d-flex">
-                                                            <img src="<%= reply.user.profilePic %>" class="rounded-circle flex-shrink-0 me-3" alt="replier" style="width: 30px; height: 30px; object-fit: cover; object-position: center;">
+                                                            <img src="<%= reply.user.profilePic %>" class="rounded-circle flex-shrink-0 me-3" alt="replier" style="width: 25px; height: 25px; object-fit: cover; object-position: center;">
   
                                                             <div>
                                                                 <p><%= reply.body %></p>

@@ -1,9 +1,10 @@
 // importing dependencis
 const { validationResult } = require('express-validator')
 
-// importing Profile model
+// importing models
 const Profile = require('../models/Profile')
 const User = require('../models/User')
+const Comment = require('../models/Comment')
 
 // importing error formatter
 const errorFormatter = require('../utils/validationErrorFormatter')
@@ -194,6 +195,36 @@ const bookmarksGetController = async (req, res, next) => {
 	}
 }
 
+// controller function for comments get route
+const commentsGetController = async (req, res, next) => {
+	try {
+		// finding requested profile & populating required data
+		let profile = await Profile.findOne({ user: req.user._id })
+		let comments = await Comment.find({ post: { $in: profile.posts } })
+			.populate({
+				path: 'post',
+				select: 'title',
+			})
+			.populate({
+				path: 'user',
+				select: 'username profilePic',
+			})
+			.populate({
+				path: 'replies.user',
+				select: 'username profilePic',
+			})
+
+		// rendering comments page
+		res.render('pages/dashboard/comments', {
+			title: 'Comments | EXP BLOG',
+			flashMessage: Flash.getMessage(req),
+			comments,
+		})
+	} catch (err) {
+		next(err)
+	}
+}
+
 // exporting controllers
 module.exports = {
 	dashboardGetController,
@@ -202,4 +233,5 @@ module.exports = {
 	editProfileGetController,
 	editProfilePostController,
 	bookmarksGetController,
+	commentsGetController,
 }

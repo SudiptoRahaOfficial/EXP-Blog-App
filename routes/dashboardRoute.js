@@ -15,9 +15,13 @@ const {
 	editProfileGetController,
 	editProfilePostController,
 	bookmarksGetController,
+	commentsGetController,
 } = require('../controllers/dashboardController')
 
 // ALL DASHBOARD ROUTES ----------
+
+// comments get route
+router.get('/comments', isAuthenticated, commentsGetController)
 
 // bookmarks get route
 router.get('/bookmarks', isAuthenticated, bookmarksGetController)

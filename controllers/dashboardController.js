@@ -17,10 +17,20 @@ const dashboardGetController = async (req, res, next) => {
 	try {
 		// approve dashboard access if user's profile exists
 		const profile = await Profile.findOne({ user: req.user._id })
+			.populate({
+				path: 'posts',
+				select: 'title thumbnail',
+			})
+			.populate({
+				path: 'bookmarks',
+				select: 'title thumbnail',
+			})
 		if (profile) {
 			return res.render('pages/dashboard/dashboard', {
 				title: 'Dashboard | EXP BLOG',
 				flashMessage: Flash.getMessage(req),
+				posts: profile.posts.reverse().slice(0, 3),
+				bookmarks: profile.bookmarks.reverse().slice(0, 3),
 			})
 		}
 

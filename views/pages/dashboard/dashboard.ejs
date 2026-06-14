@@ -11,8 +11,60 @@
 			</div>
 
 			<!-- dashboard contents -->
-			<div class="col-md-10">
-				<h1 class="text-center">Dashboard</h1>
+			<div class="col-md-9 mx-auto">
+
+				<!-- recent created posts -->
+				<div class="row mb-5">
+					<h5>Recently Created Posts</h5>
+
+					<div class="row">
+						<% if (posts.length === 0) { %>
+							<div class="text-center text-muted">
+								<p>No posts available</p>
+							</div>
+						<% } else { %>
+							<% for (let post of posts) { %>
+								<div class="card col-sm-3 m-2">
+									<% if (post.thumbnail) { %>
+										<img src="<%= post.thumbnail %>" alt="<%= post.title %>" class="img-fluid card-img-top mt-3" />
+									<% } %>
+									<div class="card-body">
+										<a href="/explorer/<%= post._id %>" style="color: #222;">
+											<h5><%= post.title %></h5>
+										</a>
+									</div>
+								</div>
+							<% } %>
+						<% } %>
+					</div>
+				</div>
+
+				<!-- bookmarked posts -->
+				<div class="row mb-5">
+					<h5>Recent Bookmarked Posts</h5>
+
+					<div class="row">
+						<% if (bookmarks.length === 0) { %>
+							<div class="text-center text-muted">
+								<p>No bookmarked posts available</p>
+							</div>
+						<% } else { %>
+							<% for (let post of bookmarks) { %>
+								<div class="card col-sm-3 m-2">
+									<% if (post.thumbnail) { %>
+										<img src="<%= post.thumbnail %>" alt="<%= post.title %>" class="img-fluid card-img-top mt-3" />
+									<% } %>
+									<div class="card-body">
+										<a href="/explorer/<%= post._id %>" style="color: #222;">
+											<h5><%= post.title %></h5>
+										</a>
+									</div>
+								</div>
+							<% } %>
+						<% } %>
+					</div>
+				</div>
+
 			</div>
 		</div>
 	</div>

@@ -40,7 +40,7 @@ const signupPostController = async (req, res, next) => {
 	}
 
 	try {
-		// encripting password & confirmPassword
+		// encripting password
 		let hashedPassword = await bcrypt.hash(password, 10)
 
 		// making new userObj
@@ -136,6 +136,55 @@ const signinPostController = async (req, res, next) => {
 	}
 }
 
+// controller for changePassword get route
+const changePasswordGetController = (req, res, next) => {
+	res.render('pages/auth/changePassword', {
+		title: 'Change Password',
+		flashMessage: Flash.getMessage(req),
+	})
+}
+
+// controller for changePassword post route
+const changePasswordPostController = async (req, res, next) => {
+	// extracting required data from req.body
+	const { oldPassword, newPassword, confirmPassword } = req.body
+
+	// checking newPassword & confirmPassword matched or not
+	if (newPassword !== confirmPassword) {
+		req.flash('fail', `Password doesn't match`)
+		return res.redirect('/auth/changePassword')
+	}
+
+	try {
+		// checking oldPassword and dbStoredPassword matched or not
+		const isMatchPassword = await bcrypt.compare(
+			oldPassword,
+			req.user.password,
+		)
+
+		// if oldPassword not matched with dbStoredPassword
+		if (!isMatchPassword) {
+			req.flash('fail', `Old Password is Invalid`)
+			return res.redirect('/auth/changePassword')
+		}
+
+		// encripting password
+		let hashedPassword = await bcrypt.hash(newPassword, 10)
+
+		// if oldPassword matched with dbStoredPassword
+		await User.findOneAndUpdate(
+			{ _id: req.user._id },
+			{ $set: { password: hashedPassword } },
+		)
+
+		// after successfully changing password
+		req.flash('success', `Password Updated Successfully!`)
+		return res.redirect('/dashboard')
+	} catch (err) {
+		next(err)
+	}
+}
+
 // controller for signout route
 const signoutController = (req, res, next) => {
 	req.session.regenerate((err) => {
@@ -155,5 +204,7 @@ module.exports = {
 	signupPostController,
 	signinGetController,
 	signinPostController,
+	changePasswordGetController,
+	changePasswordPostController,
 	signoutController,
 }

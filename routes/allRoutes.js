@@ -62,7 +62,7 @@ const routes = [
 	{
 		path: '/',
 		controller: (req, res) => {
-			res.send(`<h3>Welcome to EXP Blog!</h3>`)
+			res.redirect('/explorer')
 		},
 	},
 ]
@@ -77,9 +77,9 @@ const setRoutes = (app) => {
 		}
 	})
 
-	// // handleing errors
-	// app.use(notFound) // catches unmatched routes
-	// app.use(errorHandler) // handles all errors
+	// handleing errors
+	app.use(notFound) // catches unmatched routes
+	app.use(errorHandler) // handles all errors
 }
 
 // exporting setRoute function
